@@ -1,0 +1,27 @@
+.TH Simple_Shell "Holberton Cohort 11" "April 2020" "Version 1.0"
+.SH NAME
+.B simple_shell \- This project is designed to replicate a simple version of the BASH.
+.SH SYNOPSIS
+.waB #include "holberton.h"
+.br
+./simple_shell 
+$ [option] [file];
+
+.SH DESCRIPTION
+.B simple_shell is a sh-compatible, if a bit basic, language interpreter that takes in commands from the CLI or an input file and executes them. 
+
+.br
+.B 
+
+.br
+.B Return Value
+Upon successful return, the command entered by the user in interactive or non-interactive mode will be executed by the simple_shell. If in interactive mode, a new prompt will be displayed and await further input from the user. 
+
+.SH OPTIONS
+.
+.SH SEE ALSO
+.I man sh(1)
+.SH BUGS
+Hopefully no bugs and an all green on the checker but if you find a bug let Tim and Kelsie know.
+.SH AUTHOR
+Written by Kelsie Merchant and Tim McMacken, Holberton Tulsa Cohort 11 (1), April 2020.
