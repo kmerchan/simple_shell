@@ -12,7 +12,7 @@
  * Return: number of bytes read
  */
 
-ssize_t _getline(char *buffer, size_t buffsize, FILE stdin)
+ssize_t _getline(char **buffer, size_t *buffsize, FILE *stdin)
 {
 	ssize_t rd = 0, count = 0;
 	ssize_t i = 0;
@@ -20,27 +20,27 @@ ssize_t _getline(char *buffer, size_t buffsize, FILE stdin)
 	if (buffer == NULL || buffsize == NULL)
 		return (-1);
 
-	rd = read(STDIN, buffer, buffsize);
+	rd = read(STDIN, *buffer, *buffsize);
 	if (rd < 0)
 	{
-		free(buffer);
+		free(*buffer);
 		getline_error();
 	}
 	while (rd == 1024)
 	{
 		count += rd;
-		buffer = _realloc(buffer, count);
-		rd = read(STDIN, &buffer[count], buffsize);
+		*buffer = _realloc(*buffer, count);
+		rd = read(STDIN, &(*buffer)[count], *buffsize);
 		if (rd < 0)
 		{
-			free(buffer);
+			free(*buffer);
 			getline_error();
 		}
 	}
-	while (buffer[i])
+	while ((*buffer)[i])
 	{
-		if (buffer[i] == '\n' && buffer[i + 1] == '\0')
-			buffer[i] = '\0';
+		if ((*buffer)[i] == '\n' && (*buffer)[i + 1] == '\0')
+			(*buffer)[i] = '\0';
 		i++;
 	}
 
