@@ -12,7 +12,7 @@
 
 char *_realloc(char *buffer, size_t count)
 {
-	size_t size = count;
+	size_t size = count, i = 0;
 	char *newbuff = malloc((2 * size) * sizeof(char));
 
 	if (newbuff == NULL)
@@ -24,7 +24,7 @@ char *_realloc(char *buffer, size_t count)
 		newbuff[i] = buffer[i];
 
 	free(buffer);
-	buffer = &newbuff;
+	buffer = newbuff;
 
 	return (buffer);
 }
