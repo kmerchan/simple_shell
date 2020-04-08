@@ -12,11 +12,13 @@ int execute(char **args)
 	pid_t pid;
 	int status, ex = 0;
 
-	printf("We are in the execute program\n");
+/*	printf("We are in the execute program\n");
+ */
 	pid = fork();
 	if (pid > 0)
 	{
-		printf("I'm the parent function, I'm going to wait.\n");
+/*		printf("I'm the parent function, I'm going to wait.\n");
+ */
 		wait(&status);
 	}
 	else if (pid < 0)
@@ -27,7 +29,8 @@ int execute(char **args)
 	}
 	else
 	{
-		printf("I'm a child process. Let's run program: %s\n", args[0]);
+/*		printf("I'm a child process. Let's run program: %s\n", args[0]);
+ */
 		ex = execve(args[0], args, environ);
 		if (ex < 0)
 		{

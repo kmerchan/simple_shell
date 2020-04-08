@@ -22,7 +22,7 @@ ssize_t _getline(char **buffer, size_t *buffsize, FILE *stdin)
 	if (buffer == NULL || buffsize == NULL)
 		return (-1);
 
-	rd = read(STDIN, &(*buffer)[0], *buffsize);
+	rd = read(STDIN, *buffer, *buffsize);
 	if (rd < 0)
 	{
 		free(*buffer);
@@ -50,8 +50,8 @@ ssize_t _getline(char **buffer, size_t *buffsize, FILE *stdin)
 */
 	}
 	count += rd;
-	printf("rd: %zu and count: %zu\n", rd, count);
-
+/*	printf("rd: %zu and count: %zu\n", rd, count);
+ */
 	(*buffer)[count] = '\0';
 /*	printf("Now we're going to chop off tailing newline\n");
 	while ((*buffer)[i])

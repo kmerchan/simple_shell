@@ -9,14 +9,14 @@ int main(void)
 {
 	char *prompt = "$ ";
 	char *buffer;
-	size_t BUFF_SIZE = 4;
+	size_t BUFF_SIZE = 1024;
 	ssize_t rd = 0;
 	const char *space = " ";
 	char **args;
 	int check = 0;
 	int i = 0;
 
-	while (check != 3)
+	while (check != 1)
 	{
 		/* dynamically allocate memory for buffer */
 		buffer = malloc(sizeof(char) * BUFF_SIZE);
@@ -34,23 +34,25 @@ int main(void)
 			free(buffer);
 			getline_error();
 		}
-		printf("We have read %zu bytes. Here's what we read:\n", rd);
+/*		printf("We have read %zu bytes. Here's what we read:\n", rd);
 		printf("%s", buffer);
-		/* parses the function based on delim, create args like argv */
+*/		/* parses the function based on delim, create args like argv */
 		args = _parse(buffer, space);
 		free(buffer);
-		printf("Here's how Shelly sets args\n");
+/*		printf("Here's how Shelly sets args\n");
 		for (i = 0; args[i]; i++)
 			printf("%s\n", args[i]);
-
+*/
 		/* fork into parent and child processes to execute program */
 		execute(args);
-		printf("Awesome!  We finished executing program %s\n", args[0]);
+/*		printf("Awesome!  We finished executing program %s\n", args[0]);
+ */
 		for (i = 0; args[i]; i++)
 			free(args[i]);
 		free(args[i]);
 		free(args);
-		printf("Now everything should be free.  Let's go again!\n");
+/*		printf("Now everything should be free.  Let's go again!\n");
+ */
 		check++;
 	}
 	return (0);

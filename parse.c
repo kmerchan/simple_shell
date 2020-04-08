@@ -70,7 +70,7 @@ char **_parse(char *buffer, const char *delim)
 		printf("%s\n", args[i]);
 		i++;
 	}
-*/
 	printf("All finished with parse function, let's go back to Shelly\n");
+*/
 	return (args);
 }
