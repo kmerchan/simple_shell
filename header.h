@@ -32,12 +32,16 @@ char * checkpath(char **ourpath, char *command);
 char * str_concat(char *ourpath, char * command);
 /* declaration of function to get the lenth of a string */
 int _strlen(char *s);
+/* declaration of fucntion to compare two strings for exact match */
+int _strcmp(char *s1, char *s2);
 /* declaration of function to execute commands with fork, execve */
 int execute(char **args, char *path);
-
+/* declaration of a function to print out the enviroment */
+void printenv(void);
 
 /* declaration of error functions */
 void malloc_error(void);
 void getline_error(void);
+void write_error(void);
 
 #endif

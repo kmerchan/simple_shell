@@ -14,7 +14,6 @@ int main(void)
 	ssize_t rd = 0;
 	const char *space = " ";
 	char **args;
-	int check = 0;
 	int i = 0;
 
 	while (1)
@@ -40,22 +39,27 @@ int main(void)
 */		/* parses the function based on delim, create args like argv */
 		args = _parse(buffer, space);
 		free(buffer);
-		path = checkpath(findpath(), args[0]);
+		if ((_strcmp(args[0], "exit") != 0) && (_strcmp(args[0], "env") != 0))
+		{
+			path = checkpath(findpath(), args[0]);
 /*		printf("Here's how Shelly sets args\n");
 		for (i = 0; args[i]; i++)
 			printf("%s\n", args[i]);
 */
 		/* fork into parent and child processes to execute program */
-		execute(args, path);
+			execute(args, path);
 /*		printf("Awesome!  We finished executing program %s\n", args[0]);
  */
+		}
+		else if (_strcmp(args[0], "env") == 0)
+			printenv();
+		
 		for (i = 0; args[i]; i++)
 			free(args[i]);
 		free(args[i]);
 		free(args);
 /*		printf("Now everything should be free.  Let's go again!\n");
  */
-		check++;
 	}
 	return (0);
 }

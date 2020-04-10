@@ -36,7 +36,7 @@ ssize_t _getline(char **buffer, size_t *buffsize, FILE *stdin)
 		write(STDOUT, newline, 1);
 		exit(0);
 	}
-		
+
 /*	printf("We have read %ld bytes. Here's what we read:\n", rd);
 	write(STDOUT_FILENO, *buffer, rd);
 */	count += rd;
