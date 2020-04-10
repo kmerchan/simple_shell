@@ -9,6 +9,7 @@ int main(void)
 {
 	char *prompt = "$ ";
 	char *buffer;
+	char *path;
 	size_t BUFF_SIZE = 1024;
 	ssize_t rd = 0;
 	const char *space = " ";
@@ -39,12 +40,13 @@ int main(void)
 */		/* parses the function based on delim, create args like argv */
 		args = _parse(buffer, space);
 		free(buffer);
+		path = checkpath(findpath(), args[0]);
 /*		printf("Here's how Shelly sets args\n");
 		for (i = 0; args[i]; i++)
 			printf("%s\n", args[i]);
 */
 		/* fork into parent and child processes to execute program */
-		execute(args);
+		execute(args, path);
 /*		printf("Awesome!  We finished executing program %s\n", args[0]);
  */
 		for (i = 0; args[i]; i++)

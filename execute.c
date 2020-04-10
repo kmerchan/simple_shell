@@ -3,11 +3,11 @@
 /**
  * execute - forks the process into child to execute program
  * @args: input argv (array of arguments)
- *
+ * @path: path is the name.
  * Return: -1 if failure
  */
 
-int execute(char **args)
+int execute(char **args, char *path)
 {
 	pid_t pid;
 	int status, ex = 0;
@@ -31,7 +31,7 @@ int execute(char **args)
 	{
 /*		printf("I'm a child process. Let's run program: %s\n", args[0]);
  */
-		ex = execve(args[0], args, environ);
+		ex = execve(path, args, environ);
 		if (ex < 0)
 		{
 			perror("ERROR: executing the program failed\n");
