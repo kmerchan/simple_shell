@@ -31,8 +31,8 @@ char **_parse(char *buffer, const char *delim)
  */
 	for (i = 0; i < arg_count; i++, j++)
 	{
-		printf("%s\n", buffer);
-		for (j_store = j, arg_size = 0; NOT_DELIM; j++)
+/*		printf("%s\n", buffer);
+ */		for (j_store = j, arg_size = 0; NOT_DELIM; j++)
 			arg_size++;
 /*		if (i == (arg_count - 1))
 			arg_size--;
