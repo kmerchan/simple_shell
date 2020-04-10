@@ -26,19 +26,23 @@ char **findpath(void)
 			ourpath = _parse(&environ[i][j], colon);
 			return (ourpath);
 		}
+		else
+			j = 0;
 		i++;
 	}
 /* Potential error here if there is no set path, need to check about default of non working path */
 	return (NULL);
 }
 
-char * checkpath(char **ourpath, char *command)
+char *checkpath(char **ourpath, char *command)
 {
 	size_t i = 0;
 	int check;
 	char *tmpPath;
 	struct stat buf;
 
+	if (ourpath == NULL)
+		return (command);
 	while (ourpath[i] != NULL)
 	{
 		tmpPath = str_concat(ourpath[i], command);
@@ -95,21 +99,4 @@ char *str_concat(char *s1, char *s2)
 /*		printf("Our path is: %s\n", concat);
  */	}
 	return (concat);
-}
-
-/**
- * _strlen - a function to return the length of a string
- * @s: a char pointer passed from main
- * Return: returns an int for the length of s
- */
-
-
-int _strlen(char *s)
-{
-	int len;
-
-	for (len = 0; s[len] != '\0'; len++)
-		continue;
-
-	return (len);
 }

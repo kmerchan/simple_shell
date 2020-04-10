@@ -22,3 +22,10 @@ void getline_error(void)
 	perror("EINVAL Bad arguments\n");
 	exit(22);
 }
+
+void write_error(void)
+{
+	/* Error message from any function with a write() for if the write fails */
+	perror("ERROR: write failed.\n");
+	exit(450);
+}
