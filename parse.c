@@ -62,8 +62,8 @@ char **_parse(char *buffer, const char *delim)
 		args[i][k] = '\0';
 	}
 	args[i] = NULL;
-
-/*	printf("Here is our args array (similar to argv):\n");
+/*
+	printf("Here is our args array (similar to argv):\n");
 	i = 0;
 	while (args[i] != NULL)
 	{
