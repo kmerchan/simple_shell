@@ -16,7 +16,7 @@ int main(void)
 	int check = 0;
 	int i = 0;
 
-	while (check != 1)
+	while (1)
 	{
 		/* dynamically allocate memory for buffer */
 		buffer = malloc(sizeof(char) * BUFF_SIZE);
