@@ -3,12 +3,12 @@
 #define NOT_DELIM (buffer[j] != delim[0] && buffer[j] != '\0')
 
 /**
- * _parse - function to tokenize arguments and set in 2D array similar to argv
+ * _parse - function to tokenize arguments or tokenize paths from PATH
  * @buffer: input string to tokenize/separate into arguments
  *
  * @delim: input deliminator to tokenize buffer at specific breakpoints
  *
- * Return: double pointer to 2D argument array args
+ * Return: double pointer to 2D argument array of tokenized args or paths
  */
 
 char **_parse(char *buffer, const char *delim)
@@ -19,7 +19,7 @@ char **_parse(char *buffer, const char *delim)
 /*	printf("We are in Kelsie's parse function\n");
  */
 	arg_count = arg_counting(buffer, delim);
-/*	printf("We have %zu arguments\n", arg_count);
+/*	printf("We have %ld arguments\n", arg_count);
  */
 	args = malloc(sizeof(char *) * (arg_count + 1));
 	if (args == NULL)
@@ -34,11 +34,8 @@ char **_parse(char *buffer, const char *delim)
 /*		printf("%s\n", buffer);
  */		for (j_store = j, arg_size = 0; NOT_DELIM; j++)
 			arg_size++;
-/*		if (i == (arg_count - 1))
-			arg_size--;
-*/
-/*		printf("The size of argument %zu is %zu\n", i, arg_size);
-		printf("j_store: %zu and j: %zu\n", j_store, j);
+/*		printf("The size of argument %ld is %ld\n", i, arg_size);
+		printf("j_store: %ld and j: %zu\n", j_store, j);
 */
 		args[i] = malloc(sizeof(char) * (arg_size + 1));
 		if (args[i] == NULL)
@@ -52,7 +49,7 @@ char **_parse(char *buffer, const char *delim)
 			free(buffer);
 			malloc_error();
 		}
-/*		printf("We have malloced out row %zu\n", i);
+/*		printf("We have malloced out row %ld\n", i);
  */
 		for (j = j_store, k = 0; NOT_DELIM; j++, k++)
 			args[i][k] = buffer[j];
@@ -62,8 +59,7 @@ char **_parse(char *buffer, const char *delim)
 		args[i][k] = '\0';
 	}
 	args[i] = NULL;
-/*
-	printf("Here is our args array (similar to argv):\n");
+/*	printf("Here is our args array (similar to argv):\n");
 	i = 0;
 	while (args[i] != NULL)
 	{

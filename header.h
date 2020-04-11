@@ -14,28 +14,36 @@ extern char **environ;
 #include <fcntl.h>
 
 /* SCRIPTS & DEFINITIONS */
+#define STDIN STDIN_FILENO
+#define STDOUT STDOUT_FILENO
 
 /* FUNCTION PROTOTYPES */
+/* declaration of function to get the lenth of a string */
+int _strlen(char *s);
+
 /* declaration of function to read input into buffer (similar: getline) */
-ssize_t _getline(char **buffer, size_t *buffsize, FILE *stdin);
+ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin);
 /*declaration of subfunction to reallocate buffer memory */
 char *_realloc(char *buffer, size_t count);
+
 /* declaration of function to parse string into tokens (similar: strtok)*/
 char **_parse(char *buffer, const char *delim);
 /* declaration of subfunction to count number of arguments */
 ssize_t arg_counting(char *buffer, const char *delim);
+
+/* declaration of fucntion to compare two strings for exact match */
+int _strcmp(char *s1, char *s2);
+
 /* declaration of a function to find the current path in environ */
 char **findpath(void);
 /* declaration of a function to see if path + command exists */
-char * checkpath(char **ourpath, char *command);
-/* declaration of function to concatonate path with command */
-char * str_concat(char *ourpath, char * command);
-/* declaration of function to get the lenth of a string */
-int _strlen(char *s);
-/* declaration of fucntion to compare two strings for exact match */
-int _strcmp(char *s1, char *s2);
+char *checkpath(char **ourpath, char *command);
+/* declaration of subfunction to concatonate path with command */
+char *str_concat(char *ourpath, char *command);
+
 /* declaration of function to execute commands with fork, execve */
-int execute(char **args, char *path);
+void execute(char *path, char **args);
+
 /* declaration of a function to print out the enviroment */
 void printenv(void);
 

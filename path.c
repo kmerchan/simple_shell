@@ -24,13 +24,16 @@ char **findpath(void)
 		if (check == 5)
 		{
 			ourpath = _parse(&environ[i][j], colon);
+/*			printf("Here is ourpath:\n");
+			for (i = 0; ourpath[i]; i++)
+				printf("%s\n", ourpath[i]);
+*/
 			return (ourpath);
 		}
 		else
 			j = 0;
 		i++;
 	}
-/* Potential error here if there is no set path, need to check about default of non working path */
 	return (NULL);
 }
 
@@ -49,22 +52,28 @@ char *checkpath(char **ourpath, char *command)
 		check = stat(tmpPath, &buf);
 /*		printf("stat = %d\n", check);
  */		if (check == 0)
-			return (tmpPath);/*Make sure to free this in shelly with args array*/
+		{
+			for (i = 0; ourpath[i]; i++)
+				free(ourpath[i]);
+			free(ourpath[i]);
+			free(ourpath);
+			return (tmpPath);
+		}
 		i++;
 		free(tmpPath);
 	}
-/* If we exit the while loop we need to call our Error, cmd not found function. */
+/* If we exit while loop, need to call our Error, cmd not found function. */
+	for (i = 0; ourpath[i]; i++)
+		free(ourpath[i]);
+	free(ourpath[i]);
+	free(ourpath);
 	return (command);
 }
 
 
 char *str_concat(char *s1, char *s2)
 {
-	int i = 0;
-	int j = 0;
-	int length1 = 0;
-	int length2 = 0;
-	int total = 0;
+	int i = 0, j = 0, length1 = 0, length2 = 0, total = 0;
 	char *concat;
 
 	if (s1 != NULL)

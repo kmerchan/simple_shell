@@ -22,11 +22,12 @@ char *_realloc(char *buffer, size_t count)
 	}
 	for (i = 0; i < size; i++)
 		newbuff[i] = buffer[i];
-/*	buffer[i] = '\0';
-	newbuff[i] = '\0';
-
-	printf("This was the old buffer: %s\n", buffer);
-	printf("This is the new buffer: %s\n", newbuff);
+/*
+ *	buffer[i] = '\0';
+ *	newbuff[i] = '\0';
+ *
+ *	printf("This was the old buffer: %s\n", buffer);
+ *	printf("This is the new buffer: %s\n", newbuff);
 */
 	free(buffer);
 	buffer = newbuff;
