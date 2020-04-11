@@ -4,10 +4,9 @@
  * execute - forks the process into child to execute program
  * @args: input argv (array of arguments)
  * @path: path is the name.
- * Return: -1 if failure
  */
 
-int execute(char **args, char *path)
+void execute(char *path, char **args)
 {
 	pid_t pid;
 	int status, ex = 0;
@@ -29,7 +28,7 @@ int execute(char **args, char *path)
 	}
 	else
 	{
-/*		printf("I'm a child process. Let's run program: %s\n", args[0]);
+/*		printf("I'm a child process. Let's run program: %s\n", path);
  */
 		ex = execve(path, args, environ);
 		if (ex < 0)
@@ -38,5 +37,4 @@ int execute(char **args, char *path)
 			exit(102);
 		}
 	}
-	return (ex);
 }

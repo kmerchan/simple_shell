@@ -1,5 +1,4 @@
 #include "header.h"
-#define STDOUT STDOUT_FILENO
 
 /**
  * printenv - a function to print out the current enviroment.
@@ -10,7 +9,7 @@ void printenv(void)
 {
 	int i = 0;
 	ssize_t  w;
-	char nl[1] = {'\n'};
+	char newline[1] = {'\n'};
 
 	if (environ == NULL)
 	{
@@ -22,7 +21,7 @@ void printenv(void)
 		w = write(STDOUT, environ[i], _strlen(environ[i]));
 		if (w < 0)
 			write_error();
-		w = write(STDOUT, nl, 1);
+		w = write(STDOUT, newline, _strlen(newline));
 		if (w < 0)
 			write_error();
 		i++;

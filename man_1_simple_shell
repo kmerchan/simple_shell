@@ -4,18 +4,18 @@
 .SH SYNOPSIS
 .waB #include "holberton.h"
 .br
-./simple_shell 
+./simple_shell
 $ [option] [file];
 
 .SH DESCRIPTION
-.B simple_shell is a sh-compatible, if a bit basic, language interpreter that takes in commands from the CLI or an input file and executes them. 
+.B simple_shell is a sh-compatible, if a bit basic, language interpreter that takes in commands from the CLI or an input file and executes them.
 
 .br
-.B 
+.B
 
 .br
 .B Return Value
-Upon successful return, the command entered by the user in interactive or non-interactive mode will be executed by the simple_shell. If in interactive mode, a new prompt will be displayed and await further input from the user. 
+Upon successful return, the command entered by the user in interactive or non-interactive mode will be executed by the simple_shell. If in interactive mode, a new prompt will be displayed and await further input from the user.
 
 .SH OPTIONS
 .

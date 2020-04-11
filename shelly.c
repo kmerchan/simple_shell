@@ -10,11 +10,12 @@ int main(void)
 	char *prompt = "$ ";
 	char *buffer;
 	char *path;
-	size_t BUFF_SIZE = 1024;
-	ssize_t rd = 0;
+	ssize_t BUFF_SIZE = 1024;
+	ssize_t rd = 0, w = 0;
 	const char *space = " ";
 	char **args;
-	int i = 0;
+	int i = 0, path_check = 0;
+	struct stat buf;
 
 	while (1)
 	{
@@ -24,8 +25,16 @@ int main(void)
 			malloc_error();
 /*		printf("We have malloced our buffer\n");
  */
-		/* writes prompt to stdout */
-		write(STDOUT_FILENO, prompt, 2);
+		/* writes prompt to stdout if command not piped in */
+		if (isatty(STDIN))
+		{
+			w = write(STDOUT, prompt, _strlen(prompt));
+			if (w < 0)
+			{
+				free(buffer);
+				write_error();
+			}
+		}
 
 		/* read to buffer using getline function */
 		rd = _getline(&buffer, &BUFF_SIZE, stdin);
@@ -34,31 +43,46 @@ int main(void)
 			free(buffer);
 			getline_error();
 		}
-/*		printf("We have read %zu bytes. Here's what we read:\n", rd);
+/*		printf("We have read %ld bytes. Here's what we read:\n", rd);
 		printf("%s", buffer);
-*/		/* parses the function based on delim, create args like argv */
+*/
+		/* parses the function based on delim, create args like argv */
 		args = _parse(buffer, space);
-		free(buffer);
-		if ((_strcmp(args[0], "exit") != 0) && (_strcmp(args[0], "env") != 0))
-		{
-			path = checkpath(findpath(), args[0]);
 /*		printf("Here's how Shelly sets args\n");
 		for (i = 0; args[i]; i++)
 			printf("%s\n", args[i]);
 */
-		/* fork into parent and child processes to execute program */
-			execute(args, path);
-/*		printf("Awesome!  We finished executing program %s\n", args[0]);
+		free(buffer);
+		if (_strcmp(args[0], "exit") && _strcmp(args[0], "env"))
+		{
+			if (stat(args[0], &buf))
+			{
+				path_check = 1;
+				path = checkpath(findpath(), args[0]);
+			}
+			else
+				path = args[0];
+/*			printf("Here's how Shelly sets path\n");
+			printf("%s\n", path);
+*/
+			/* fork into child processes to execute program */
+			execute(path, args);
+/*			printf("We finished executing program %s\n", path);
  */
 		}
 		else if (_strcmp(args[0], "env") == 0)
+		{
 			printenv();
-		
+/*			printf("We finished printing env\n");
+ */		}
 		for (i = 0; args[i]; i++)
 			free(args[i]);
 		free(args[i]);
 		free(args);
-/*		printf("Now everything should be free.  Let's go again!\n");
+		if (path_check)
+			free(path);
+		path_check = 0;
+/*		printf("Now everything should be free!\n");
  */
 	}
 	return (0);
