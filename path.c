@@ -62,12 +62,17 @@ char *checkpath(char **ourpath, char *command)
 		i++;
 		free(tmpPath);
 	}
-/* If we exit while loop, need to call our Error, cmd not found function. */
 	for (i = 0; ourpath[i]; i++)
 		free(ourpath[i]);
 	free(ourpath[i]);
 	free(ourpath);
-	return (command);
+	tmpPath = malloc(sizeof(char) * (_strlen(command) + 1));
+	if (tmpPath == NULL)
+		malloc_error();
+	for (i = 0; command[i]; i++)
+		tmpPath[i] = command[i];
+	tmpPath[i] = '\0';
+	return (tmpPath);
 }
 
 

@@ -18,7 +18,7 @@ char **_parse(char *buffer, const char *delim)
 
 /*	printf("We are in Kelsie's parse function\n");
  */
-	arg_count = arg_counting(buffer, delim);
+	arg_count = arg_counting(&buffer, delim);
 /*	printf("We have %ld arguments\n", arg_count);
  */
 	args = malloc(sizeof(char *) * (arg_count + 1));
@@ -57,6 +57,8 @@ char **_parse(char *buffer, const char *delim)
 			k--;
 
 		args[i][k] = '\0';
+		while (buffer[j + 1] == delim[0])
+			j++;
 	}
 	args[i] = NULL;
 /*	printf("Here is our args array (similar to argv):\n");

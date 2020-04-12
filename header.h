@@ -22,14 +22,17 @@ extern char **environ;
 int _strlen(char *s);
 
 /* declaration of function to read input into buffer (similar: getline) */
-ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin);
+ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin, int user_input);
 /*declaration of subfunction to reallocate buffer memory */
 char *_realloc(char *buffer, size_t count);
 
 /* declaration of function to parse string into tokens (similar: strtok)*/
 char **_parse(char *buffer, const char *delim);
 /* declaration of subfunction to count number of arguments */
-ssize_t arg_counting(char *buffer, const char *delim);
+ssize_t arg_counting(char **buffer, const char *delim);
+
+/* declaration of function to reset buffer after parse */
+char *reset(char *buffer, char **args, const char *delim);
 
 /* declaration of fucntion to compare two strings for exact match */
 int _strcmp(char *s1, char *s2);
