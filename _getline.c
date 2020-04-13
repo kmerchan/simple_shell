@@ -12,7 +12,7 @@
  * Return: number of bytes read
  */
 
-ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin)
+ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin, int user_input)
 {
 	ssize_t rd = 0, count = 0;
 	char newline[1] = {'\n'};
@@ -35,8 +35,8 @@ ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin)
 	else if (rd == 0)
 	{
 		free(*buffer);
-		write(STDOUT, newline, _strlen(newline));
-
+		if (user_input)
+			write(STDOUT, newline, _strlen(newline));
 		exit(0);
 	}
 /*	printf("We have read %ld bytes. Here's what we read:\n", rd);

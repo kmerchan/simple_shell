@@ -9,7 +9,7 @@ void printenv(void)
 {
 	int i = 0;
 	ssize_t  w;
-	char newline[1] = {'\n'};
+	char newline[] = "\n";
 
 	if (environ == NULL)
 	{

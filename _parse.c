@@ -18,15 +18,12 @@ char **_parse(char *buffer, const char *delim)
 
 /*	printf("We are in Kelsie's parse function\n");
  */
-	arg_count = arg_counting(buffer, delim);
+	arg_count = arg_counting(&buffer, delim);
 /*	printf("We have %ld arguments\n", arg_count);
  */
 	args = malloc(sizeof(char *) * (arg_count + 1));
 	if (args == NULL)
-	{
-		free(buffer);
-		malloc_error();
-	}
+		return (NULL);
 /*	printf("We have malloced out our rows, corresponding to arg_count\n");
  */
 	for (i = 0; i < arg_count; i++, j++)
@@ -46,8 +43,7 @@ char **_parse(char *buffer, const char *delim)
 					free(args[i]);
 			}
 			free(args);
-			free(buffer);
-			malloc_error();
+			return (NULL);
 		}
 /*		printf("We have malloced out row %ld\n", i);
  */
@@ -57,6 +53,8 @@ char **_parse(char *buffer, const char *delim)
 			k--;
 
 		args[i][k] = '\0';
+		while (buffer[j + 1] == delim[0])
+			j++;
 	}
 	args[i] = NULL;
 /*	printf("Here is our args array (similar to argv):\n");

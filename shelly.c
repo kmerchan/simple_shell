@@ -14,8 +14,7 @@ int main(void)
 	ssize_t rd = 0, w = 0;
 	const char *space = " ";
 	char **args;
-	int i = 0, path_check = 0;
-	struct stat buf;
+	int user_input = 0, i = 0, check_path = 0;
 
 	while (1)
 	{
@@ -28,6 +27,7 @@ int main(void)
 		/* writes prompt to stdout if command not piped in */
 		if (isatty(STDIN))
 		{
+			user_input = 1;
 			w = write(STDOUT, prompt, _strlen(prompt));
 			if (w < 0)
 			{
@@ -37,7 +37,7 @@ int main(void)
 		}
 
 		/* read to buffer using getline function */
-		rd = _getline(&buffer, &BUFF_SIZE, stdin);
+		rd = _getline(&buffer, &BUFF_SIZE, stdin, user_input);
 		if (rd < 0)
 		{
 			free(buffer);
@@ -46,44 +46,68 @@ int main(void)
 /*		printf("We have read %ld bytes. Here's what we read:\n", rd);
 		printf("%s", buffer);
 */
-		/* parses the function based on delim, create args like argv */
-		args = _parse(buffer, space);
-/*		printf("Here's how Shelly sets args\n");
-		for (i = 0; args[i]; i++)
-			printf("%s\n", args[i]);
-*/
-		free(buffer);
-		if (_strcmp(args[0], "exit") && _strcmp(args[0], "env"))
+		while (buffer != NULL)
 		{
-			if (stat(args[0], &buf))
+			/* parses the function based on delim, create args like argv */
+			args = _parse(buffer, space);
+			if (args == NULL)
 			{
-				path_check = 1;
-				path = checkpath(findpath(), args[0]);
+				free(buffer);
+				malloc_error();
 			}
-			else
-				path = args[0];
-/*			printf("Here's how Shelly sets path\n");
-			printf("%s\n", path);
+			if (args[0] == NULL)
+			{
+				free(args[0]);
+				free(args);
+				free(buffer);
+				break;
+			}
+/*			printf("Here's how Shelly sets args\n");
+			for (i = 0; args[i]; i++)
+				printf("%s!\n", args[i]);
 */
-			/* fork into child processes to execute program */
-			execute(path, args);
-/*			printf("We finished executing program %s\n", path);
+			buffer = reset(buffer, args, space);
+/*			printf("This is reset buffer: %s\n", buffer);
+*/
+			if (_strcmp(args[0], "exit") && _strcmp(args[0], "env"))
+			{
+				check_path = 1;
+				path = checkpath(findpath(), args[0]);
+				if (path == NULL)
+				{
+					for (i = 0; args[i]; i++)
+						free(args[i]);
+					free(args[i]);
+					free(args);
+					free(buffer);
+					malloc_error();
+				}
+/*				printf("Here's how Shelly sets path\n");
+				printf("%s\n", path);
+*/
+				/* fork into child processes to execute program */
+				execute(path, args);
+/*				printf("We finished executing program %s\n", path);
+ */
+			}
+			else if (_strcmp(args[0], "env") == 0)
+			{
+				printenv();
+/*				printf("We finished printing env\n");
+ */
+			}
+			if (check_path == 1)
+				free(path);
+			for (i = 0; args[i]; i++)
+			{
+				free(args[i]);
+			}
+			free(args[i]);
+			free(args);
+/*			printf("Now everything, except buffer should be free!\n");
  */
 		}
-		else if (_strcmp(args[0], "env") == 0)
-		{
-			printenv();
-/*			printf("We finished printing env\n");
- */		}
-		for (i = 0; args[i]; i++)
-			free(args[i]);
-		free(args[i]);
-		free(args);
-		if (path_check)
-			free(path);
-		path_check = 0;
-/*		printf("Now everything should be free!\n");
- */
+		free(buffer);
 	}
 	return (0);
 }
