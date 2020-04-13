@@ -14,7 +14,7 @@ int main(void)
 	ssize_t rd = 0, w = 0;
 	const char *space = " ";
 	char **args;
-	int user_input = 0, i = 0;
+	int user_input = 0, i = 0, check_path = 0;
 
 	while (1)
 	{
@@ -50,25 +50,38 @@ int main(void)
 		{
 			/* parses the function based on delim, create args like argv */
 			args = _parse(buffer, space);
-/*			printf("Here's how Shelly sets args\n");
-			for (i = 0; args[i]; i++)
-				printf("%s!\n", args[i]);
-*/
+			if (args == NULL)
+			{
+				free(buffer);
+				malloc_error();
+			}
 			if (args[0] == NULL)
 			{
 				free(args[0]);
 				free(args);
+				free(buffer);
 				break;
 			}
+/*			printf("Here's how Shelly sets args\n");
+			for (i = 0; args[i]; i++)
+				printf("%s!\n", args[i]);
+*/
 			buffer = reset(buffer, args, space);
-			if (buffer == NULL)
-				free(buffer);
-/*			else
-				printf("This is reset buffer: %s\n", buffer);
+/*			printf("This is reset buffer: %s\n", buffer);
 */
 			if (_strcmp(args[0], "exit") && _strcmp(args[0], "env"))
 			{
+				check_path = 1;
 				path = checkpath(findpath(), args[0]);
+				if (path == NULL)
+				{
+					for (i = 0; args[i]; i++)
+						free(args[i]);
+					free(args[i]);
+					free(args);
+					free(buffer);
+					malloc_error();
+				}
 /*				printf("Here's how Shelly sets path\n");
 				printf("%s\n", path);
 */
@@ -83,13 +96,14 @@ int main(void)
 /*				printf("We finished printing env\n");
  */
 			}
+			if (check_path == 1)
+				free(path);
 			for (i = 0; args[i]; i++)
 			{
 				free(args[i]);
 			}
 			free(args[i]);
 			free(args);
-			free(path);
 /*			printf("Now everything, except buffer should be free!\n");
  */
 		}

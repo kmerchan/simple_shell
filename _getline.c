@@ -37,7 +37,6 @@ ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin, int user_input)
 		free(*buffer);
 		if (user_input)
 			write(STDOUT, newline, _strlen(newline));
-
 		exit(0);
 	}
 /*	printf("We have read %ld bytes. Here's what we read:\n", rd);

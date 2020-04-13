@@ -23,10 +23,7 @@ char **_parse(char *buffer, const char *delim)
  */
 	args = malloc(sizeof(char *) * (arg_count + 1));
 	if (args == NULL)
-	{
-		free(buffer);
-		malloc_error();
-	}
+		return (NULL);
 /*	printf("We have malloced out our rows, corresponding to arg_count\n");
  */
 	for (i = 0; i < arg_count; i++, j++)
@@ -46,8 +43,7 @@ char **_parse(char *buffer, const char *delim)
 					free(args[i]);
 			}
 			free(args);
-			free(buffer);
-			malloc_error();
+			return (NULL);
 		}
 /*		printf("We have malloced out row %ld\n", i);
  */

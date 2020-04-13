@@ -28,13 +28,19 @@ char **findpath(void)
 			for (i = 0; ourpath[i]; i++)
 				printf("%s\n", ourpath[i]);
 */
+			if (ourpath == NULL)
+				return (NULL);
 			return (ourpath);
 		}
 		else
 			j = 0;
 		i++;
 	}
-	return (NULL);
+	ourpath = malloc(sizeof(char) * 1);
+	if (ourpath == NULL)
+		return (NULL);
+	ourpath[0] = '\0';
+	return (ourpath);
 }
 
 char *checkpath(char **ourpath, char *command)
@@ -45,7 +51,7 @@ char *checkpath(char **ourpath, char *command)
 	struct stat buf;
 
 	if (ourpath == NULL)
-		return (command);
+		return (NULL);
 	while (ourpath[i] != NULL)
 	{
 		tmpPath = str_concat(ourpath[i], command);
@@ -81,8 +87,13 @@ char *str_concat(char *s1, char *s2)
 	int i = 0, j = 0, length1 = 0, length2 = 0, total = 0;
 	char *concat;
 
-	if (s1 != NULL)
+/*	printf("This is ourpath[i]: %s\n", s1);
+ */	if (s1 != NULL)
+	{
 		length1 += _strlen(s1);
+		if (length1 == 0)
+			s1 = "";
+	}
 	else
 		s1 = "";
 	if (s2 != NULL)
@@ -103,8 +114,11 @@ char *str_concat(char *s1, char *s2)
 		{
 			concat[j] = s1[i];
 		}
-		concat[j] = '/';
-		j++;
+		if (j != 0)
+		{
+			concat[j] = '/';
+			j++;
+		}
 		for (i = 0; i < length2; i++, j++)
 		{
 			concat[j] = s2[i];

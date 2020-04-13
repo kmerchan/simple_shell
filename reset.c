@@ -24,6 +24,8 @@ char *reset(char *buffer, char **args, const char *delim)
 			tempbuffer++;
 		for (j = 0; args[i][j]; j++)
 			tempbuffer++;
+		while (tempbuffer[0] == delim[0])
+			tempbuffer++;
 /*		printf("Here's tempbuffer: %s\n", tempbuffer);
  */	}
 	if (tempbuffer[0] == '\0')
@@ -32,6 +34,7 @@ char *reset(char *buffer, char **args, const char *delim)
 	if (newbuffer == NULL)
 	{
 		free(buffer);
+		//NEED TO FREE ARGS ARRAY//
 		malloc_error();
 	}
 	for (i = 0; tempbuffer[i] != '\0'; i++)
