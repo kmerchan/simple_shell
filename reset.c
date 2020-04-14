@@ -11,9 +11,9 @@
  * Return: new pointer to buffer, starts from next command or NULL
  */
 
-char *reset(char *buffer, char **args, const char *delim)
+char *reset(char **buffer, char ***args, const char *delim)
 {
-	char *tempbuffer = buffer;
+	char *tempbuffer = (*buffer);
 	char *newbuffer;
 	int i = 0, j = 0;
 
@@ -33,14 +33,14 @@ char *reset(char *buffer, char **args, const char *delim)
 	newbuffer = malloc(sizeof(char) * (_strlen(tempbuffer) + 1));
 	if (newbuffer == NULL)
 	{
-		free(buffer);
-		//NEED TO FREE ARGS ARRAY//
+		free((*buffer));
+		free_args(args);
 		malloc_error();
 	}
 	for (i = 0; tempbuffer[i] != '\0'; i++)
 		newbuffer[i] = tempbuffer[i];
 	newbuffer[i] = '\0';
-	free(buffer);
+	free((*buffer));
 /*	printf("Here is newbuffer: %s\n", newbuffer);
  */	return (newbuffer);
 }

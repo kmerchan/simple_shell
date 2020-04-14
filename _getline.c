@@ -23,18 +23,18 @@ ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin, int user_input)
  */
 	if (buffer == NULL || buffsize == NULL)
 	{
-		free(*buffer);
+		free((*buffer));
 		getline_error();
 	}
 	rd = read(STDIN, *buffer, *buffsize);
 	if (rd < 0)
 	{
-		free(*buffer);
+		free((*buffer));
 		getline_error();
 	}
 	else if (rd == 0)
 	{
-		free(*buffer);
+		free((*buffer));
 		if (user_input)
 			write(STDOUT, newline, _strlen(newline));
 		exit(0);
