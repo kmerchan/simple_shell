@@ -34,7 +34,7 @@ char *reset(char *buffer, char **args, const char *delim)
 	if (newbuffer == NULL)
 	{
 		free(buffer);
-		//NEED TO FREE ARGS ARRAY//
+		/* NEED TO FREE ARGS ARRAY */
 		malloc_error();
 	}
 	for (i = 0; tempbuffer[i] != '\0'; i++)
