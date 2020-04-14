@@ -29,7 +29,10 @@ char *reset(char **buffer, char ***args, const char *delim)
 /*		printf("Here's tempbuffer: %s\n", tempbuffer);
  */	}
 	if (tempbuffer[0] == '\0')
+	{
+		free((*buffer));
 		return (NULL);
+	}
 	newbuffer = malloc(sizeof(char) * (_strlen(tempbuffer) + 1));
 	if (newbuffer == NULL)
 	{
