@@ -32,7 +32,7 @@ char **_parse(char *buffer, const char *delim);
 ssize_t arg_counting(char **buffer, const char *delim);
 
 /* declaration of function to reset buffer after parse */
-char *reset(char *buffer, char **args, const char *delim);
+char *reset(char **buffer, char ***args, const char *delim);
 
 /* declaration of fucntion to compare two strings for exact match */
 int _strcmp(char *s1, char *s2);
@@ -49,6 +49,9 @@ void execute(char *path, char **args);
 
 /* declaration of a function to print out the enviroment */
 void printenv(void);
+
+/* declaration of a function to free alloted memory and exit */
+void goodbye(char **buffer, char ***args);
 
 /* declaration of error functions */
 void malloc_error(void);

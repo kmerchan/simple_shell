@@ -66,10 +66,12 @@ int main(void)
 			for (i = 0; args[i]; i++)
 				printf("%s!\n", args[i]);
 */
-			buffer = reset(buffer, args, space);
+			buffer = reset(&buffer, &args, space);
 /*			printf("This is reset buffer: %s\n", buffer);
-*/
-			if (_strcmp(args[0], "exit") && _strcmp(args[0], "env"))
+ */
+			if (_strcmp(args[0], "exit") == 0)
+				goodbye(&buffer, &args);
+			if (_strcmp(args[0], "env"))
 			{
 				check_path = 1;
 				path = checkpath(findpath(), args[0]);
