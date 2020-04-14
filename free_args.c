@@ -7,7 +7,7 @@
 
 void free_args(char ***args)
 {
-	int i;
+	int i = 0;
 
 	for (i = 0; (*args)[i]; i++)
 		free((*args)[i]);

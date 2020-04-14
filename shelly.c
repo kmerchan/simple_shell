@@ -14,7 +14,7 @@ int main(void)
 	ssize_t rd = 0, w = 0;
 	const char *space = " ";
 	char **args;
-	int user_input = 0, i = 0, check_path = 0;
+	int user_input = 0, check_path = 0;
 
 	while (1)
 	{
@@ -57,7 +57,7 @@ int main(void)
 			}
 			if (args[0] == NULL)
 			{
-				free_args(args)
+				free_args(&args);
 				free(buffer);
 				break;
 			}
@@ -67,14 +67,14 @@ int main(void)
 */
 			buffer = reset(&buffer, &args, space);
 /*			printf("This is reset buffer: %s\n", buffer);
- */
+*/
 			if (_strcmp(args[0], "exit") == 0)
 				goodbye(&buffer, &args);
 			if (_strcmp(args[0], "env"))
 			{
 				check_path = 1;
 				check_execute(&path, &args, &buffer);
-			/* Fork into child processes to execute program */
+				/* fork into child processes to execute program */
 				execute(&path, &args, &buffer);
 /*				printf("We finished executing program %s\n", path);
  */

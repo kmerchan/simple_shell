@@ -42,7 +42,8 @@ char *reset(char **buffer, char ***args, const char *delim)
 	for (i = 0; tempbuffer[i] != '\0'; i++)
 		newbuffer[i] = tempbuffer[i];
 	newbuffer[i] = '\0';
-	free(*buffer);
-/*	printf("Here is newbuffer: %s\n", newbuffer);
+	free((*buffer));
+
+ /*	printf("Here is newbuffer: %s\n", newbuffer);
  */	return (newbuffer);
 }

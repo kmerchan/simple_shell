@@ -39,7 +39,7 @@ char *reset(char **buffer, char ***args, const char *delim);
 int _strcmp(char *s1, char *s2);
 
 /* declaration of function to check if program can be run before fork*/
-void check_execute(char **path, char ***args, char **buffer)
+void check_execute(char **path, char ***args, char **buffer);
 
 /* declaration of a function to find the current path in environ */
 char **findpath(void);
@@ -54,7 +54,7 @@ void execute(char **path, char ***args, char **buffer);
 /* declaration of a function to print out the enviroment */
 void printenv(void);
 
-/* declaration of a function to free alloted memory and exit */
+/* declaration of a function to free allocated memory and exit */
 void goodbye(char **buffer, char ***args);
 
 /* declaration of a function to free the alloted memory for args */

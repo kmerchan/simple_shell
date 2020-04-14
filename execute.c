@@ -3,7 +3,8 @@
 /**
  * execute - forks the process into child to execute program
  * @args: input argv (array of arguments)
- * @path: path is the name.
+ * @path: path is the name
+ * @buffer: input buffer read to if need to free
  */
 
 void execute(char **path, char ***args, char **buffer)
@@ -24,7 +25,7 @@ void execute(char **path, char ***args, char **buffer)
 	{
 		free((*path));
 		free_args(args);
-		free ((*buffer));
+		free((*buffer));
 		perror("");
 		exit(errno);
 	}
@@ -32,7 +33,7 @@ void execute(char **path, char ***args, char **buffer)
 	{
 /*		printf("I'm a child process. Let's run program: %s\n", path);
  */
-		ex = execve(path, args, environ);
+		ex = execve((*path), (*args), environ);
 		if (ex < 0)
 		{
 			free((*path));

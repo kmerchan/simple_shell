@@ -1,7 +1,12 @@
 #include "header.h"
 
 /**
+ * check_execute - checks if the program can be executed before fork
+ * @path: input double pointer to set path to after checking PATH (environ)
  *
+ * @args: input pointer to 2D array of arguments, including program name
+ *
+ * @buffer: input pointer to buffer read to in getline to free if error called
  *
  */
 
@@ -33,10 +38,10 @@ void check_execute(char **path, char ***args, char **buffer)
 	if (check != 0)
 	{
 		free_args(args);
-                free((*buffer));
-                perror("");
-                exit(errno);
-       	}
-
+		free((*buffer))
+		perror("");
+		exit(errno);
+	}
+  
 	return;
 }
