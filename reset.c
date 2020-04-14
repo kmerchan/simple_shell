@@ -35,11 +35,8 @@ char *reset(char **buffer, char ***args, const char *delim)
 	newbuffer = malloc(sizeof(char) * (_strlen(tempbuffer) + 1));
 	if (newbuffer == NULL)
 	{
-		free(*buffer);
-		for (i = 0; (*args)[i]; i++)
-			free((*args)[i]);
-		free((*args)[i]);
-		free(*args);
+		free((*buffer));
+		free_args(args);
 		malloc_error();
 	}
 	for (i = 0; tempbuffer[i] != '\0'; i++)
