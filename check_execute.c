@@ -38,7 +38,7 @@ void check_execute(char **path, char ***args, char **buffer)
 	if (check != 0)
 	{
 		free_args(args);
-		free((*buffer))
+		free((*buffer));
 		perror("");
 		exit(errno);
 	}
