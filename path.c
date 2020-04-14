@@ -88,7 +88,8 @@ char *str_concat(char *s1, char *s2)
 	char *concat;
 
 /*	printf("This is ourpath[i]: %s\n", s1);
- */	if (s1 != NULL)
+ */
+	if (s1 != NULL)
 	{
 		length1 += _strlen(s1);
 		if (length1 == 0)
@@ -97,34 +98,34 @@ char *str_concat(char *s1, char *s2)
 	else
 		s1 = "";
 	if (s2 != NULL)
-		length2 += _strlen(s2) + 1;
+		length2 += _strlen(s2);
 	else
 		s2 = "";
-	total = length1 + length2 + 1;
-/*	printf("Now in StrCat, time to Malloc\n");
- */	concat = (char *) malloc(total * (sizeof(char)));
+	total = length1 + length2 + 2;
+/*	printf("string1: %s\nlength1: %d\n", s1, length1);
+	printf("string2: %s\nlength2: %d\n", s2, length2);
+	printf("total: %d\n", total);
+*/	concat = (char *) malloc(total * (sizeof(char)));
 	if (concat == NULL)
-	{
 		return (NULL);
-	}
-	else
-	{
 /*		printf("Malloc for Concat was Successful\n");
- */		for (i = 0; i < length1; i++, j++)
-		{
-			concat[j] = s1[i];
-		}
-		if (j != 0)
-		{
-			concat[j] = '/';
-			j++;
-		}
-		for (i = 0; i < length2; i++, j++)
-		{
-			concat[j] = s2[i];
-		}
-		concat[j] = '\0';
-/*		printf("Our path is: %s\n", concat);
- */	}
+ */
+	for (i = 0; i < length1; i++, j++)
+	{
+		concat[j] = s1[i];
+	}
+/*	printf("We've copied over string1\n");
+ */	if (j != 0)
+	{
+		concat[j] = '/';
+		j++;
+	}
+	for (i = 0; i < length2; i++, j++)
+	{
+		concat[j] = s2[i];
+	}
+	concat[j] = '\0';
+/*	printf("Our path is: %s\n", concat);
+ */
 	return (concat);
 }
