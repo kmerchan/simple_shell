@@ -38,7 +38,7 @@ char *reset(char **buffer, char ***args, const char *delim);
 /* declaration of fucntion to compare two strings for exact match */
 int _strcmp(char *s1, char *s2);
 
-/* declaration of function to check if program can be run before fork */
+/* declaration of function to check if program can be run before fork*/
 void check_execute(char **path, char ***args, char **buffer);
 
 /* declaration of a function to find the current path in environ */
@@ -53,6 +53,9 @@ void execute(char **path, char ***args, char **buffer);
 
 /* declaration of a function to print out the enviroment */
 void printenv(void);
+
+/* declaration of a function to free allocated memory and exit */
+void goodbye(char **buffer, char ***args);
 
 /* declaration of function to free 2D array of arguments */
 void free_args(char ***args);

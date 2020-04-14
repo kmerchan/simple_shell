@@ -58,6 +58,7 @@ int main(void)
 			if (args[0] == NULL)
 			{
 				free_args(&args);
+				free(buffer);
 				break;
 			}
 /*			printf("Here's how Shelly sets args\n");
@@ -67,7 +68,9 @@ int main(void)
 			buffer = reset(&buffer, &args, space);
 /*			printf("This is reset buffer: %s\n", buffer);
 */
-			if (_strcmp(args[0], "exit") && _strcmp(args[0], "env"))
+			if (_strcmp(args[0], "exit") == 0)
+				goodbye(&buffer, &args);
+			if (_strcmp(args[0], "env"))
 			{
 				check_path = 1;
 				check_execute(&path, &args, &buffer);

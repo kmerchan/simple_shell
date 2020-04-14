@@ -25,7 +25,7 @@ void execute(char **path, char ***args, char **buffer)
 	{
 		free((*path));
 		free_args(args);
-		free(buffer);
+		free((*buffer));
 		perror("");
 		exit(errno);
 	}

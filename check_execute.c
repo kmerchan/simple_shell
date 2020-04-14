@@ -19,7 +19,7 @@ void check_execute(char **path, char ***args, char **buffer)
 	if ((*path) == NULL)
 	{
 		free_args(args);
-		free(buffer);
+		free((*buffer));
 		malloc_error();
 	}
 /*	printf("Here's how Shelly sets path\n");
@@ -28,16 +28,20 @@ void check_execute(char **path, char ***args, char **buffer)
 	check = stat((*path), &buf);
 	if (check != 0)
 	{
+		free_args(args);
+		free((*buffer));
 		perror("");
 		exit(errno);
 	}
+
 	check = access((*path), X_OK);
 	if (check != 0)
 	{
+		free_args(args);
+		free((*buffer))
 		perror("");
 		exit(errno);
 	}
-/*	printf("The program has passed all checks, ready to fork\n");
- */
+
 	return;
 }
