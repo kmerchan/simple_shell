@@ -10,7 +10,7 @@
  *
  */
 
-void check_execute(char **path, char ***args, char **buffer)
+int check_execute(char **path, char ***args, char **buffer)
 {
 	int check = 0;
 	struct stat buf;
@@ -28,20 +28,16 @@ void check_execute(char **path, char ***args, char **buffer)
 	check = stat((*path), &buf);
 	if (check != 0)
 	{
-		free_args(args);
-		free((*buffer));
 		perror("");
-		exit(errno);
+		return (errno);
 	}
 
 	check = access((*path), X_OK);
 	if (check != 0)
 	{
-		free_args(args);
-		free((*buffer));
 		perror("");
-		exit(errno);
+		return (errno);
 	}
   
-	return;
+	return (0);
 }

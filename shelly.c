@@ -14,7 +14,7 @@ int main(void)
 	ssize_t rd = 0, w = 0;
 	const char *space = " ";
 	char **args;
-	int user_input = 0, check_path = 0;
+	int user_input = 0, check_path = 0, stat_check = 0;
 
 	while (1)
 	{
@@ -37,7 +37,7 @@ int main(void)
 		}
 
 		/* read to buffer using getline function */
-		rd = _getline(&buffer, &BUFF_SIZE, stdin, user_input);
+		rd = _getline(&buffer, &BUFF_SIZE, stdin, user_input, stat_check);
 		if (rd < 0)
 		{
 			free(buffer);
@@ -46,6 +46,7 @@ int main(void)
 /*		printf("We have read %ld bytes. Here's what we read:\n", rd);
 		printf("%s", buffer);
 */
+		stat_check = 0;
 		while (buffer != NULL)
 		{
 			/* parses the function based on delim, create args like argv */
@@ -73,9 +74,10 @@ int main(void)
 			if (_strcmp(args[0], "env"))
 			{
 				check_path = 1;
-				check_execute(&path, &args, &buffer);
+				stat_check = check_execute(&path, &args, &buffer);
+				if (stat_check == 0)
 				/* fork into child processes to execute program */
-				execute(&path, &args, &buffer);
+					execute(&path, &args, &buffer);
 /*				printf("We finished executing program %s\n", path);
  */
 			}
