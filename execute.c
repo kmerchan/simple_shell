@@ -6,7 +6,7 @@
  * @path: path is the name.
  */
 
-void execute(char *path, char **args)
+void execute(char **path, char ***args, char **buffer)
 {
 	pid_t pid;
 	int status, ex = 0;
@@ -22,9 +22,11 @@ void execute(char *path, char **args)
 	}
 	else if (pid < 0)
 	{
-	/* several exit codes listed on man page */
-		perror("ERROR: Could not fork child\n");
-		exit(101);
+		free((*path));
+		free_args(args);
+		free ((*buffer));
+		perror("");
+		exit(errno);
 	}
 	else
 	{
@@ -33,8 +35,11 @@ void execute(char *path, char **args)
 		ex = execve(path, args, environ);
 		if (ex < 0)
 		{
-			perror("ERROR: executing the program failed\n");
-			exit(102);
+			free((*path));
+			free_args(args);
+			free((*buffer));
+			perror("");
+			exit(errno);
 		}
 	}
 }

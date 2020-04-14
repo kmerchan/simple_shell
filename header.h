@@ -12,6 +12,7 @@ extern char **environ;
 #include <sys/stat.h>
 #include <string.h>
 #include <fcntl.h>
+#include <errno.h>
 
 /* SCRIPTS & DEFINITIONS */
 #define STDIN STDIN_FILENO
@@ -37,6 +38,9 @@ char *reset(char **buffer, char ***args, const char *delim);
 /* declaration of fucntion to compare two strings for exact match */
 int _strcmp(char *s1, char *s2);
 
+/* declaration of function to check if program can be run before fork*/
+void check_execute(char **path, char ***args, char **buffer)
+
 /* declaration of a function to find the current path in environ */
 char **findpath(void);
 /* declaration of a function to see if path + command exists */
@@ -45,13 +49,16 @@ char *checkpath(char **ourpath, char *command);
 char *str_concat(char *ourpath, char *command);
 
 /* declaration of function to execute commands with fork, execve */
-void execute(char *path, char **args);
+void execute(char **path, char ***args, char **buffer);
 
 /* declaration of a function to print out the enviroment */
 void printenv(void);
 
 /* declaration of a function to free alloted memory and exit */
 void goodbye(char **buffer, char ***args);
+
+/* declaration of a function to free the alloted memory for args */
+void free_args(cahr ***args);
 
 /* declaration of error functions */
 void malloc_error(void);

@@ -57,8 +57,7 @@ int main(void)
 			}
 			if (args[0] == NULL)
 			{
-				free(args[0]);
-				free(args);
+				free_args(args)
 				free(buffer);
 				break;
 			}
@@ -74,21 +73,9 @@ int main(void)
 			if (_strcmp(args[0], "env"))
 			{
 				check_path = 1;
-				path = checkpath(findpath(), args[0]);
-				if (path == NULL)
-				{
-					for (i = 0; args[i]; i++)
-						free(args[i]);
-					free(args[i]);
-					free(args);
-					free(buffer);
-					malloc_error();
-				}
-/*				printf("Here's how Shelly sets path\n");
-				printf("%s\n", path);
-*/
-				/* fork into child processes to execute program */
-				execute(path, args);
+				check_execute(&path, &args, &buffer);
+			/* Fork into child processes to execute program */
+				execute(&path, &args, &buffer);
 /*				printf("We finished executing program %s\n", path);
  */
 			}
@@ -100,12 +87,7 @@ int main(void)
 			}
 			if (check_path == 1)
 				free(path);
-			for (i = 0; args[i]; i++)
-			{
-				free(args[i]);
-			}
-			free(args[i]);
-			free(args);
+			free_args(&args);
 /*			printf("Now everything, except buffer should be free!\n");
  */
 		}
