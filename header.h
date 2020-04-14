@@ -57,8 +57,8 @@ void printenv(void);
 /* declaration of a function to free allocated memory and exit */
 void goodbye(char **buffer, char ***args);
 
-/* declaration of function to free 2D array of arguments */
-void free_args(char ***args);
+/* declaration of a function to free the alloted memory for args */
+void free_args(cahr ***args);
 
 /* declaration of error functions */
 void malloc_error(void);
