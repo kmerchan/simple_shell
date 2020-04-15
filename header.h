@@ -17,6 +17,7 @@ extern char **environ;
 /* SCRIPTS & DEFINITIONS */
 #define STDIN STDIN_FILENO
 #define STDOUT STDOUT_FILENO
+#define STDERR STDERR_FILENO
 
 /* FUNCTION PROTOTYPES */
 /* declaration of function to get the lenth of a string */

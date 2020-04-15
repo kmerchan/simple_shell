@@ -7,8 +7,9 @@
 void malloc_error(void)
 {
 	/* Error message from malloc man page, exit status from ENOMEM */
-	perror("ENOMEM Out of memory.  Possibly, the application hit the ");
-	perror("RLIMIT_AS or RLIMIT_DATA limit described in getrlimit(2).\n");
+	char *string = "ENOMEM Out of memory.";
+
+	write(STDERR, string, _strlen(string));
 	exit(12);
 }
 

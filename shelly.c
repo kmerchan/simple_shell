@@ -8,29 +8,24 @@
 int main(void)
 {
 	char *buffer, *path, *prompt = "$ ";
-	ssize_t BUFF_SIZE = 1024;
-	ssize_t w = 0;
+	ssize_t BUFF_SIZE = 1024, w = 0;
 	const char *space = " ";
 	char **args;
 	int user_input = 0, check_path = 0, stat_check = 0;
 
 	while (1)
 	{
-		buffer = malloc(sizeof(char) * BUFF_SIZE);
-		if (buffer == NULL)
-			malloc_error();
 		if (isatty(STDIN))
 		{
 			user_input = 1;
 			w = write(STDOUT, prompt, _strlen(prompt));
 			if (w < 0)
-			{
-				free(buffer);
 				write_error();
-			}
 		}
+		buffer = malloc(sizeof(char) * BUFF_SIZE);
+		if (buffer == NULL)
+			malloc_error();
 		_getline(&buffer, &BUFF_SIZE, stdin, user_input, stat_check);
-		stat_check = 0;
 		while (buffer != NULL)
 		{
 			args = _parse(buffer, space);
@@ -48,7 +43,10 @@ int main(void)
 			buffer = reset(&buffer, &args, space);
 			if (_strcmp(args[0], "exit") == 0)
 				goodbye(&buffer, &args);
-			if (_strcmp(args[0], "env"))
+			stat_check = 0;
+			if (_strcmp(args[0], "\n") == 0)
+				check_path = 0;
+			else if (_strcmp(args[0], "env"))
 			{
 				check_path = 1;
 				stat_check = check_execute(&path, &args, &buffer);

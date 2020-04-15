@@ -35,12 +35,17 @@ char **_parse(char *buffer, const char *delim)
 		}
 		for (j = j_store, k = 0; NOT_DELIM; j++, k++)
 			args[i][k] = buffer[j];
-		if (i == (arg_count - 1) && buffer[j - 1] == '\n')
-			k--;
-
+		if (j_store != 0)
+		{
+			if (i == (arg_count - 1) && buffer[j - 1] == '\n')
+				k--;
+		}
 		args[i][k] = '\0';
-		while (buffer[j + 1] == delim[0])
-			j++;
+		if (buffer[j] != '\0')
+		{
+			while (buffer[j + 1] == delim[0])
+				j++;
+		}
 	}
 	args[i] = NULL;
 	return (args);
