@@ -21,7 +21,7 @@ ssize_t arg_counting(char **buffer, const char *delim)
 		arg_count++;
 	for (i = 0; (*buffer)[i]; i++)
 	{
-		if ((*buffer)[i] == '\n')
+		if ((*buffer)[i] == '\n' && i != 0)
 		{
 			(*buffer)[i] = delim[0];
 			break;
