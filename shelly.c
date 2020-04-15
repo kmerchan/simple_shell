@@ -11,7 +11,7 @@ int main(void)
 	ssize_t BUFF_SIZE = 1024, w = 0;
 	const char *space = " ";
 	char **args;
-	int user_input = 0, check_path = 0, stat_check = 0;
+	int user_input = 0, check_path = 0, stat_check = 0, line_count = 1;
 
 	while (1)
 	{
@@ -49,7 +49,7 @@ int main(void)
 			else if (_strcmp(args[0], "env"))
 			{
 				check_path = 1;
-				stat_check = check_execute(&path, &args, &buffer);
+				stat_check = check_execute(&path, &args, &buffer, line_count);
 				if (stat_check == 0)
 					execute(&path, &args, &buffer);
 			}
@@ -60,6 +60,7 @@ int main(void)
 			free_args(&args);
 		}
 		free(buffer);
+		line_count++;
 	}
 	return (0);
 }

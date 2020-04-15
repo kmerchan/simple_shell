@@ -41,7 +41,7 @@ char *reset(char **buffer, char ***args, const char *delim);
 int _strcmp(char *s1, char *s2);
 
 /* declaration of function to check if program can be run before fork*/
-int check_execute(char **path, char ***args, char **buffer);
+int check_execute(char **path, char ***args, char **buffer, int line_count);
 
 /* declaration of a function to find the current path in environ */
 char **findpath(void);
