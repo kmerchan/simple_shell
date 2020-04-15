@@ -9,7 +9,7 @@
  * Return: number of arguments
  */
 
-ssize_t arg_counting(char **buffer, const char *delim)
+ssize_t arg_counting(char **buffer, char *delim)
 {
 	ssize_t arg_count = 0, i = 0;
 

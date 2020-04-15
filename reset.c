@@ -11,7 +11,7 @@
  * Return: new pointer to buffer, starts from next command or NULL
  */
 
-char *reset(char **buffer, char ***args, const char *delim)
+char *reset(char **buffer, char ***args, char *delim)
 {
 	char *tempbuffer = (*buffer);
 	char *newbuffer;

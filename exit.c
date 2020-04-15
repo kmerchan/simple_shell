@@ -4,8 +4,9 @@
  * goodbye - a fucntion to free remaining memory and exit
  * @buffer: the user input string from getline
  * @args: the tokenized array of arguments
+ * @sts: input status of previous command
  */
-void goodbye(char **buffer, char ***args)
+void goodbye(char **buffer, char ***args, int *sts)
 {
 	int i;
 
@@ -15,5 +16,5 @@ void goodbye(char **buffer, char ***args)
 	free((*args));
 	free((*buffer));
 
-	exit(0);
+	exit(*sts);
 }
