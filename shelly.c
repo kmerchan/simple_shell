@@ -18,13 +18,9 @@ int main(void)
 
 	while (1)
 	{
-		/* dynamically allocate memory for buffer */
 		buffer = malloc(sizeof(char) * BUFF_SIZE);
 		if (buffer == NULL)
 			malloc_error();
-/*		printf("We have malloced our buffer\n");
- */
-		/* writes prompt to stdout if command not piped in */
 		if (isatty(STDIN))
 		{
 			user_input = 1;
@@ -35,21 +31,15 @@ int main(void)
 				write_error();
 			}
 		}
-
-		/* read to buffer using getline function */
 		rd = _getline(&buffer, &BUFF_SIZE, stdin, user_input, stat_check);
 		if (rd < 0)
 		{
 			free(buffer);
 			getline_error();
 		}
-/*		printf("We have read %ld bytes. Here's what we read:\n", rd);
-		printf("%s", buffer);
-*/
 		stat_check = 0;
 		while (buffer != NULL)
 		{
-			/* parses the function based on delim, create args like argv */
 			args = _parse(buffer, space);
 			if (args == NULL)
 			{
@@ -62,13 +52,7 @@ int main(void)
 				free(buffer);
 				break;
 			}
-/*			printf("Here's how Shelly sets args\n");
-			for (i = 0; args[i]; i++)
-				printf("%s!\n", args[i]);
-*/
 			buffer = reset(&buffer, &args, space);
-/*			printf("This is reset buffer: %s\n", buffer);
-*/
 			if (_strcmp(args[0], "exit") == 0)
 				goodbye(&buffer, &args);
 			if (_strcmp(args[0], "env"))
@@ -76,22 +60,13 @@ int main(void)
 				check_path = 1;
 				stat_check = check_execute(&path, &args, &buffer);
 				if (stat_check == 0)
-				/* fork into child processes to execute program */
 					execute(&path, &args, &buffer);
-/*				printf("We finished executing program %s\n", path);
- */
 			}
 			else if (_strcmp(args[0], "env") == 0)
-			{
 				printenv();
-/*				printf("We finished printing env\n");
- */
-			}
 			if (check_path == 1)
 				free(path);
 			free_args(&args);
-/*			printf("Now everything, except buffer should be free!\n");
- */
 		}
 		free(buffer);
 	}

@@ -23,7 +23,8 @@ extern char **environ;
 int _strlen(char *s);
 
 /* declaration of function to read input into buffer (similar: getline) */
-ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin, int user_input, int stat_check);
+ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin,
+int user_input, int stat_check);
 /*declaration of subfunction to reallocate buffer memory */
 char *_realloc(char *buffer, size_t count);
 
