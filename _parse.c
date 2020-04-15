@@ -26,8 +26,10 @@ char **_parse(char *buffer, const char *delim)
 		if (args[i] == NULL)
 		{
 			if (i != 0)
+			{
 				for (i = i - 1; i >= 0; i--)
 					free(args[i]);
+			}
 			free(args);
 			return (NULL);
 		}

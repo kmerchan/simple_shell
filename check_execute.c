@@ -22,9 +22,6 @@ int check_execute(char **path, char ***args, char **buffer)
 		free((*buffer));
 		malloc_error();
 	}
-/*	printf("Here's how Shelly sets path\n"); */
-/*	printf("%s\n", (*path)); */
-
 	check = stat((*path), &buf);
 	if (check != 0)
 	{

@@ -7,11 +7,9 @@
 
 int main(void)
 {
-	char *prompt = "$ ";
-	char *buffer;
-	char *path;
+	char *buffer, *path, *prompt = "$ ";
 	ssize_t BUFF_SIZE = 1024;
-	ssize_t rd = 0, w = 0;
+	ssize_t w = 0;
 	const char *space = " ";
 	char **args;
 	int user_input = 0, check_path = 0, stat_check = 0;
@@ -31,12 +29,7 @@ int main(void)
 				write_error();
 			}
 		}
-		rd = _getline(&buffer, &BUFF_SIZE, stdin, user_input, stat_check);
-		if (rd < 0)
-		{
-			free(buffer);
-			getline_error();
-		}
+		_getline(&buffer, &BUFF_SIZE, stdin, user_input, stat_check);
 		stat_check = 0;
 		while (buffer != NULL)
 		{
