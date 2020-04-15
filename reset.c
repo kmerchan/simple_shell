@@ -17,8 +17,7 @@ char *reset(char **buffer, char ***args, const char *delim)
 	char *newbuffer;
 	int i = 0, j = 0;
 
-/*	printf("Here's tempbuffer: %s\n", tempbuffer);
- */	for (i = 0; (*args)[i]; i++)
+	for (i = 0; (*args)[i]; i++)
 	{
 		while (tempbuffer[0] == delim[0])
 			tempbuffer++;
@@ -26,8 +25,7 @@ char *reset(char **buffer, char ***args, const char *delim)
 			tempbuffer++;
 		while (tempbuffer[0] == delim[0])
 			tempbuffer++;
-/*		printf("Here's tempbuffer: %s\n", tempbuffer);
- */	}
+	}
 	if (tempbuffer[0] == '\0')
 	{
 		free((*buffer));
@@ -45,6 +43,5 @@ char *reset(char **buffer, char ***args, const char *delim)
 	newbuffer[i] = '\0';
 	free((*buffer));
 
- /*	printf("Here is newbuffer: %s\n", newbuffer);
- */	return (newbuffer);
+	return (newbuffer);
 }

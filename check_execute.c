@@ -7,7 +7,7 @@
  * @args: input pointer to 2D array of arguments, including program name
  *
  * @buffer: input pointer to buffer read to in getline to free if error called
- *
+ * Return: the errno or 0 if success
  */
 
 int check_execute(char **path, char ***args, char **buffer)
@@ -22,9 +22,6 @@ int check_execute(char **path, char ***args, char **buffer)
 		free((*buffer));
 		malloc_error();
 	}
-/*	printf("Here's how Shelly sets path\n");
-	printf("%s\n", (*path));
-*/
 	check = stat((*path), &buf);
 	if (check != 0)
 	{
@@ -38,6 +35,6 @@ int check_execute(char **path, char ***args, char **buffer)
 		perror("");
 		return (errno);
 	}
-  
+
 	return (0);
 }
