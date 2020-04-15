@@ -1,20 +1,16 @@
 #include "header.h"
-int power(int base, int exp);
-char *itoa(int num);
 
 /**
  * check_execute - checks if the program can be executed before fork
  * @path: input double pointer to set path to after checking PATH (environ)
- *
  * @args: input pointer to 2D array of arguments, including program name
- *
  * @buffer: input pointer to buffer read to in getline to free if error called
- * Return: the errno or 0 if success
+ * @sts: input status of previous command
+ * @lc: input of current line count
  */
 
-int check_execute(char **path, char ***args, char **buffer, int line_count)
+void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
 {
-	int check = 0;
 	char *count;
 	struct stat buf;
 
@@ -25,26 +21,27 @@ int check_execute(char **path, char ***args, char **buffer, int line_count)
 		free((*buffer));
 		malloc_error();
 	}
-	check = stat((*path), &buf);
-	if (check != 0)
+	*sts = stat((*path), &buf);
+	if ((*sts) != 0)
 	{
-		count = itoa(line_count);
+		count = itoa(lc);
 		write(STDERR, (*args)[0], _strlen((*args)[0]));
 		write(STDERR,": ", 2);
 		write(STDERR, count, _strlen(count));
-		write(STDERR, ": not found.\n", 13);
+		write(STDERR, ": not found\n", 13);
 		free(count);
-		return (127);
+		*sts = 127;
+		return;
 	}
 
-	check = access((*path), X_OK);
-	if (check != 0)
+	*sts = access((*path), X_OK);
+	if ((*sts) != 0)
 	{
 		perror("");
-		return (errno);
+		return;
 	}
 
-	return (0);
+	return;
 }
 
 /**

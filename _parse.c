@@ -9,7 +9,7 @@
  * Return: double pointer to 2D argument array of tokenized args or paths
  */
 
-char **_parse(char *buffer, const char *delim)
+char **_parse(char *buffer, char *delim)
 {
 	char **args;
 	ssize_t i = 0, arg_count = 0, j = 0, j_store = 0, arg_size = 0, k = 0;

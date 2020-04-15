@@ -16,7 +16,7 @@
  */
 
 ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin,
-int user_input, int stat_check)
+		 int user_input, int stat_check)
 {
 	ssize_t rd = 0, count = 0;
 	char newline[1] = {'\n'};

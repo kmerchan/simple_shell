@@ -1,16 +1,23 @@
 #include "header.h"
 
 /**
- * printenv - a function to print out the current enviroment.
- * Return: a 0 for success or a -1 for failure.
+ * printenv - a function to print out the current enviroment
+ * @buffer: buffer with input read into shell
+ * @args: 2D array with arguments, including program name
+ * @sts: input status of previous command
+ *
  */
 
-void printenv(void)
+void printenv(char **buffer, char ***args, int *sts)
 {
 	int i = 0;
 	ssize_t  w;
 	char newline[] = "\n";
 
+	(void)buffer;
+	(void)args;
+
+	*sts = 0;
 	if (environ == NULL)
 	{
 		perror("ERROR: Enviroment unset or unrecognized.\n");
