@@ -58,6 +58,7 @@ char *checkpath(char **ourpath, char *command)
 	{
 		tmpPath = str_concat(ourpath[i], command);
 		check = stat(tmpPath, &buf);
+		check += access(tmpPath, X_OK);
 		if (check == 0)
 		{
 			for (i = 0; ourpath[i]; i++)
