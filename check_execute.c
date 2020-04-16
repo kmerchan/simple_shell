@@ -1,5 +1,7 @@
 #include "header.h"
 
+#define NO_PATH_START ((*path)[0] != '/' && (*path)[0] != '.' && (*path)[0] != '~')
+
 /**
  * check_exec - checks if the program can be executed before fork
  * @path: input double pointer to set path to after checking PATH (environ)
@@ -11,10 +13,11 @@
 
 void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
 {
+	int fail_stat = 0, after_PATH = 0;
 	char *count;
 	struct stat buf;
 
-	(*path) = checkpath(findpath(), (*args)[0]);
+	(*path) = checkpath(findpath(), (*args)[0], fail_stat, &after_PATH);
 	if ((*path) == NULL)
 	{
 		free_args(args);
@@ -22,21 +25,33 @@ void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
 		malloc_error();
 	}
 	*sts = stat((*path), &buf);
+	if ((*sts) == 0 && NO_PATH_START && after_PATH)
+		*sts = 127;
 	if ((*sts) != 0)
 	{
-		count = itoa(lc);
-		write(STDERR, count, _strlen(count));
-		write(STDERR, ": ", 2);
-		write(STDERR, (*args)[0], _strlen((*args)[0]));
-		write(STDERR, ": not found\n", 13);
-		free(count);
-		*sts = 127;
-		return;
+		fail_stat++;
+		free(*path);
+		(*path) = checkpath(findpath(), (*args)[0], fail_stat, &after_PATH);
+		*sts = stat((*path), &buf);
+		if ((*sts) == 0 && NO_PATH_START && after_PATH)
+			*sts = 127;
+		if ((*sts) != 0)
+		{
+			count = itoa(lc);
+			write(STDERR, count, _strlen(count));
+			write(STDERR, ": ", 2);
+			write(STDERR, (*args)[0], _strlen((*args)[0]));
+			write(STDERR, ": not found\n", 13);
+			free(count);
+			*sts = 127;
+			return;
+		}
 	}
 
 	*sts = access((*path), X_OK);
 	if ((*sts) != 0)
 	{
+		*sts = 126;
 		perror("");
 		return;
 	}

@@ -19,11 +19,12 @@ char *reset(char **buffer, char ***args, char *delim)
 
 	for (i = 0; (*args)[i]; i++)
 	{
-		while (tempbuffer[0] == delim[0] || tempbuffer[0] == '\n')
+		while (tempbuffer[0] == delim[0])
+		       /*|| tempbuffer[0] == '\n') */
 			tempbuffer++;
 		for (j = 0; (*args)[i][j]; j++)
 			tempbuffer++;
-		while (tempbuffer[0] == delim[0])
+		while (tempbuffer[0] == delim[0] || tempbuffer[0] == '\n')
 			tempbuffer++;
 	}
 	if (tempbuffer[0] == '\0')

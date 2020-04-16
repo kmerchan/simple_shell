@@ -42,24 +42,36 @@ char **findpath(void)
  * checkpath - a function to check that the pathis valid
  * @ourpath: our current path options one at a time
  * @command: our current command form argv[0]
+ * @fail_stat: int that tells us if stat failed once
+ * @after_PATH: pointer to determine if tmpPATH = command
+ * after checking against full PATH (including ::)
  * Return: a character pointer to the valid path + cmd
  * concatonated
  */
-char *checkpath(char **ourpath, char *command)
+char *checkpath(char **ourpath, char *command, int fail_stat, int *after_PATH)
 {
 	size_t i = 0;
-	int check;
+	int check1, check2;
 	char *tmpPath;
 	struct stat buf;
 
+	*after_PATH = 0;
 	if (ourpath == NULL)
 		return (NULL);
 	while (ourpath[i] != NULL)
 	{
 		tmpPath = str_concat(ourpath[i], command);
-		check = stat(tmpPath, &buf);
-		check += access(tmpPath, X_OK);
-		if (check == 0)
+		check1 = stat(tmpPath, &buf);
+		check2 = access(tmpPath, X_OK) + check1;
+		if (check2 == 0)
+		{
+			for (i = 0; ourpath[i]; i++)
+				free(ourpath[i]);
+			free(ourpath[i]);
+			free(ourpath);
+			return (tmpPath);
+		}
+		if (check1 == 0 && fail_stat == 1)
 		{
 			for (i = 0; ourpath[i]; i++)
 				free(ourpath[i]);
@@ -74,6 +86,7 @@ char *checkpath(char **ourpath, char *command)
 		free(ourpath[i]);
 	free(ourpath[i]);
 	free(ourpath);
+	*after_PATH = 1;
 	tmpPath = malloc(sizeof(char) * (_strlen(command) + 1));
 	if (tmpPath == NULL)
 		malloc_error();
