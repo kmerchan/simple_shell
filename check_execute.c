@@ -25,9 +25,9 @@ void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
 	if ((*sts) != 0)
 	{
 		count = itoa(lc);
-		write(STDERR, (*args)[0], _strlen((*args)[0]));
-		write(STDERR, ": ", 2);
 		write(STDERR, count, _strlen(count));
+		write(STDERR, ": ", 2);
+		write(STDERR, (*args)[0], _strlen((*args)[0]));
 		write(STDERR, ": not found\n", 13);
 		free(count);
 		*sts = 127;
