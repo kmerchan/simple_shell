@@ -13,6 +13,4 @@ void newline(char **buffer, char ***args, int *sts)
 	(void)buffer;
 	(void)args;
 	(void)sts;
-
-	return;
 }

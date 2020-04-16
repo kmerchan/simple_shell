@@ -1,7 +1,7 @@
 #include "header.h"
 
 /**
- * check_execute - checks if the program can be executed before fork
+ * check_exec - checks if the program can be executed before fork
  * @path: input double pointer to set path to after checking PATH (environ)
  * @args: input pointer to 2D array of arguments, including program name
  * @buffer: input pointer to buffer read to in getline to free if error called
@@ -26,7 +26,7 @@ void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
 	{
 		count = itoa(lc);
 		write(STDERR, (*args)[0], _strlen((*args)[0]));
-		write(STDERR,": ", 2);
+		write(STDERR, ": ", 2);
 		write(STDERR, count, _strlen(count));
 		write(STDERR, ": not found\n", 13);
 		free(count);
@@ -40,15 +40,13 @@ void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
 		perror("");
 		return;
 	}
-
-	return;
 }
 
 /**
- * itoa - a  function to take an int and convert it to
+ * itoa - a function to take an int and convert it to
  * a character string for printing.
  * @num: an integer to be converted
- * Reutrn: a pointer to our string output.
+ * Return: a pointer to our string output.
  */
 
 char *itoa(int num)
