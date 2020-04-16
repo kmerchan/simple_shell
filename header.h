@@ -79,7 +79,7 @@ int power(int base, int exp);
 /* declaration of a function to find the current path in environ */
 char **findpath(void);
 /* declaration of a function to see if path + command exists */
-char *checkpath(char **ourpath, char *command);
+char *checkpath(char **ourpath, char *command, int fail_stat, int *after_PATH);
 /* declaration of subfunction to concatonate path with command */
 char *str_concat(char *ourpath, char *command);
 
