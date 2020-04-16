@@ -9,7 +9,7 @@ int main(void)
 {
 	char *buffer, *path, **args, *space = " ";
 	ssize_t BUFF_SIZE = 1024;
-	int user_input = 0, check_path = 0, sts = 0, lc = 1;
+	int user_input = 0, check_path = 0, sts = 0, lc = 1, i = 0;
 
 
 	while (1)
@@ -25,6 +25,16 @@ int main(void)
 			args = _parse(buffer, space);
 			if (args == NULL)
 				malloc_error();
+			for (i = 1; args[i]; i++)
+			{
+				if (_strcmp(args[i], "exit") == 0 || _strcmp(args[i], "\nexit") == 0)
+					{
+						free(args[i]);
+						args[i] = NULL;
+						for(; args[i]; i++)
+							free(args[i]);
+					}
+			}
 			buffer = reset(&buffer, &args, space);
 			find_and_run(&buffer, &args, &path, &sts, &check_path, lc);
 			free_all_except_buffer(&path, &check_path, &args);
