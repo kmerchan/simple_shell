@@ -8,9 +8,10 @@
  *
  */
 
-void newline(char **buffer, char ***args, int *sts)
+void newline(char **buffer, char ***args, int *sts, char **name)
 {
 	(void)buffer;
 	(void)args;
 	(void)sts;
+	(void)name;
 }

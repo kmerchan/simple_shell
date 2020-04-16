@@ -2,16 +2,29 @@
 
 /**
  * malloc_error - prints error message and exits when malloc fails
+ * @name: the name of our compiled program
  */
 
-void malloc_error(void)
+void malloc_error(char **name)
 {
 	/* Error message from malloc man page, exit status from ENOMEM */
 	char *string = "ENOMEM Out of memory.";
-
+	free((*name));
 	write(STDERR, string, _strlen(string));
 	exit(12);
 }
+
+/**
+ * malloc_error - prints error message and exits when malloc fails
+ */
+ 
+void malloc_error2(void)
+{
+        /* Error message from malloc man page, exit status from ENOMEM */
+	 char *string = "ENOMEM Out of memory.";
+	 write(STDERR, string, _strlen(string));
+}
+
 
 /**
  * getline_error - prints error message and exits when getline fails
