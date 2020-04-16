@@ -29,7 +29,7 @@ ssize_t arg_counting(char **buffer, char *delim)
 		if ((*buffer)[i] == delim[0])
 		{
 			arg_count++;
-			while ((*buffer)[i + 1] == delim[0])
+			while ((*buffer)[i + 1] == delim[0] && delim[0] != ':')
 				i++;
 			if ((*buffer)[i + 1] == '\n' || (*buffer)[i + 1] == '|')
 			{

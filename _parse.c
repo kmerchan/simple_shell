@@ -43,7 +43,7 @@ char **_parse(char *buffer, char *delim)
 		args[i][k] = '\0';
 		if (buffer[j] != '\0')
 		{
-			while (buffer[j + 1] == delim[0])
+			while (buffer[j + 1] == delim[0] && delim[0] != ':')
 				j++;
 		}
 	}
