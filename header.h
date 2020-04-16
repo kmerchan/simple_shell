@@ -53,6 +53,10 @@ ssize_t arg_counting(char **buffer, char *delim);
 /* declaration of function to reset buffer after parse */
 char *reset(char **buffer, char ***args, char *delim);
 
+/* declaration of function to find & run builtin or program for input command*/
+void find_and_run(char **buffer, char ***args, char **path, int *sts,
+		  int *check_path, int lc);
+
 /* declaration of fucntion to compare two strings for exact match */
 int _strcmp(char *s1, char *s2);
 
