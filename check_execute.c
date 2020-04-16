@@ -11,7 +11,7 @@
  * @lc: input of current line count
  */
 
-void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
+void check_exec(char **path, char ***args, char **buffer, int *sts, int lc, char **name)
 {
 	int fail_stat = 0, after_PATH = 0;
 	char *count;
@@ -22,7 +22,7 @@ void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
 	{
 		free_args(args);
 		free((*buffer));
-		malloc_error();
+		malloc_error(name);
 	}
 	*sts = stat((*path), &buf);
 	if ((*sts) == 0 && NO_PATH_START && after_PATH)
@@ -38,6 +38,8 @@ void check_exec(char **path, char ***args, char **buffer, int *sts, int lc)
 		if ((*sts) != 0)
 		{
 			count = itoa(lc);
+			write(STDERR, (*name), _strlen((*name)));
+			write(STDERR, ": ", 2);
 			write(STDERR, count, _strlen(count));
 			write(STDERR, ": ", 2);
 			write(STDERR, (*args)[0], _strlen((*args)[0]));

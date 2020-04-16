@@ -8,7 +8,7 @@
  *
  */
 
-void printenv(char **buffer, char ***args, int *sts)
+void printenv(char **buffer, char ***args, int *sts, char **name)
 {
 	int i = 0;
 	ssize_t  w;
@@ -16,6 +16,7 @@ void printenv(char **buffer, char ***args, int *sts)
 
 	(void)buffer;
 	(void)args;
+	(void)name;
 
 	*sts = 0;
 	if (environ == NULL)

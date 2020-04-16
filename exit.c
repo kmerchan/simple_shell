@@ -6,7 +6,7 @@
  * @args: the tokenized array of arguments
  * @sts: input status of previous command
  */
-void goodbye(char **buffer, char ***args, int *sts)
+void goodbye(char **buffer, char ***args, int *sts, char **name)
 {
 	int i;
 
@@ -14,6 +14,7 @@ void goodbye(char **buffer, char ***args, int *sts)
 		free((*args)[i]);
 	free((*args)[i]);
 	free((*args));
+	free((*name));
 	free((*buffer));
 
 	exit(*sts);

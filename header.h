@@ -29,19 +29,21 @@ extern char **environ;
 typedef struct get_program
 {
 	char *name;
-	void (*func)(char **buffer, char ***args, int *sts);
+	void (*func)(char **buffer, char ***args, int *sts, char **name);
 } get_program;
 
 /* FUNCTION PROTOTYPES */
 /* declaration of function to get the lenth of a string */
 int _strlen(char *s);
+/* declaration of a function to copy a string */
+char *_strdup(char *input, char *name);
 
 /* decalration of function to print prompt for user input */
-int print_prompt(void);
+int print_prompt(char **name);
 
 /* declaration of function to read input into buffer (similar: getline) */
 ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin,
-		 int user_input, int stat_check);
+		 int user_input, int stat_check, char **name);
 /*declaration of subfunction to reallocate buffer memory */
 char *_realloc(char *buffer, size_t count);
 
@@ -55,22 +57,22 @@ char *reset(char **buffer, char ***args, char *delim);
 
 /* declaration of function to find & run builtin or program for input command*/
 void find_and_run(char **buffer, char ***args, char **path, int *sts,
-		  int *check_path, int lc);
+		  int *check_path, int lc, char **name);
 
 /* declaration of fucntion to compare two strings for exact match */
 int _strcmp(char *s1, char *s2);
 
 /* declaration of a function to print out the enviroment */
-void printenv(char **buffer, char ***args, int *sts);
+void printenv(char **buffer, char ***args, int *sts, char **name);
 
 /* declaration of a function to free allocated memory and exit */
-void goodbye(char **buffer, char ***args, int *sts);
+void goodbye(char **buffer, char ***args, int *sts, char **name);
 
 /* declaration of a function to continue if input is newline */
-void newline(char **buffer, char ***args, int *sts);
+void newline(char **buffer, char ***args, int *sts, char **name);
 
 /* declaration of function to check if program can be run before fork*/
-void check_exec(char **path, char ***args, char **buffer, int *sts, int lc);
+void check_exec(char **path, char ***args, char **buffer, int *sts, int lc, char **name);
 /* declaration of subfunction to change integer to string for error */
 char *itoa(int num);
 /* declaration of subfunction to find power of base raised to exp */
@@ -92,7 +94,8 @@ void free_args(char ***args);
 void free_all_except_buffer(char **path, int *check_path, char ***args);
 
 /* declaration of error functions */
-void malloc_error(void);
+void malloc_error(char **name);
+void malloc_error2(void);
 void getline_error(void);
 void write_error(void);
 

@@ -12,6 +12,7 @@ char **findpath(void)
 	char path[] = "PATH=";
 	char colon[] = ":";
 	char **ourpath;
+	char *nopath = "nopath";
 
 	while (environ[i] != NULL)
 	{
@@ -32,10 +33,10 @@ char **findpath(void)
 			j = 0;
 		i++;
 	}
-	ourpath = malloc(sizeof(char) * 1);
+	ourpath = malloc(sizeof(char) * _strlen(nopath));
 	if (ourpath == NULL)
 		return (NULL);
-	ourpath[0] = '\0';
+	ourpath[0] = _strdup(nopath, ourpath[0]);
 	return (ourpath);
 }
 /**
@@ -82,14 +83,15 @@ char *checkpath(char **ourpath, char *command, int fail_stat, int *after_PATH)
 		i++;
 		free(tmpPath);
 	}
+	if (ourpath[0][0] != '\0')
+		*after_PATH = 1;
 	for (i = 0; ourpath[i]; i++)
 		free(ourpath[i]);
 	free(ourpath[i]);
 	free(ourpath);
-	*after_PATH = 1;
 	tmpPath = malloc(sizeof(char) * (_strlen(command) + 1));
 	if (tmpPath == NULL)
-		malloc_error();
+		malloc_error2();
 	for (i = 0; command[i]; i++)
 		tmpPath[i] = command[i];
 	tmpPath[i] = '\0';

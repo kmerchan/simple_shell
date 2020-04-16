@@ -18,7 +18,7 @@ char *_realloc(char *buffer, size_t count)
 	if (newbuff == NULL)
 	{
 		free(buffer);
-		malloc_error();
+		malloc_error2();
 	}
 	for (i = 0; i < size; i++)
 		newbuff[i] = buffer[i];

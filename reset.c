@@ -37,7 +37,7 @@ char *reset(char **buffer, char ***args, char *delim)
 	{
 		free((*buffer));
 		free_args(args);
-		malloc_error();
+		malloc_error2();
 	}
 	for (i = 0; tempbuffer[i] != '\0'; i++)
 		newbuffer[i] = tempbuffer[i];

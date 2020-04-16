@@ -9,14 +9,15 @@
  * @buffer: a pointer to the buffer allocated in our shelly.c
  * @buffsize: the size of the buffer from shelly.c 1024 expected.
  * @stdin: take input from standard in
- * @user_input: HEY THIS NEEDS TO BE CORRECTED AND IM TIRED
+ * @user_input: Our indicator that we are in interactive mode. 
  * @stat_check: the status check value to see if the last call
+ * @name: a pointer to the name of our program.
  * was an error or a success for the exit code.
  * Return: number of bytes read
  */
 
 ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin,
-		 int user_input, int stat_check)
+		 int user_input, int stat_check, char **name)
 {
 	ssize_t rd = 0, count = 0;
 	char newline[1] = {'\n'};
@@ -24,17 +25,20 @@ ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin,
 
 	if (buffer == NULL || buffsize == NULL)
 	{
+		free((*name));
 		free((*buffer));
 		getline_error();
 	}
 	rd = read(STDIN, *buffer, *buffsize);
 	if (rd < 0)
 	{
+		free((*name));
 		free((*buffer));
 		getline_error();
 	}
 	else if (rd == 0)
 	{
+		free((*name));
 		free((*buffer));
 		if (user_input)
 			write(STDOUT, newline, _strlen(newline));
