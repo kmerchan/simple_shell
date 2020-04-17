@@ -33,10 +33,17 @@ char **findpath(void)
 			j = 0;
 		i++;
 	}
-	ourpath = malloc(sizeof(char) * _strlen(nopath));
+	ourpath = malloc(sizeof(char *) * 2);
 	if (ourpath == NULL)
 		return (NULL);
+	ourpath[0] = malloc(sizeof(char) * (_strlen(nopath) + 1));
+	if (ourpath[0] == NULL)
+	{
+		free(ourpath);
+		return (NULL);
+	}
 	ourpath[0] = _strdup(nopath, ourpath[0]);
+	ourpath[1] = NULL;
 	return (ourpath);
 }
 /**
@@ -51,44 +58,34 @@ char **findpath(void)
  */
 char *checkpath(char **ourpath, char *command, int fail_stat, int *after_PATH)
 {
-	size_t i = 0;
-	int check1, check2;
+	int i = 0, check1, check2;
 	char *tmpPath;
 	struct stat buf;
 
 	*after_PATH = 0;
 	if (ourpath == NULL)
 		return (NULL);
-	while (ourpath[i] != NULL)
+	while (ourpath[i] != NULL && _strcmp(ourpath[i], "nopath"))
 	{
 		tmpPath = str_concat(ourpath[i], command);
 		check1 = stat(tmpPath, &buf);
 		check2 = access(tmpPath, X_OK) + check1;
 		if (check2 == 0)
 		{
-			for (i = 0; ourpath[i]; i++)
-				free(ourpath[i]);
-			free(ourpath[i]);
-			free(ourpath);
+			free_args(&ourpath);
 			return (tmpPath);
 		}
 		if (check1 == 0 && fail_stat == 1)
 		{
-			for (i = 0; ourpath[i]; i++)
-				free(ourpath[i]);
-			free(ourpath[i]);
-			free(ourpath);
+			free_args(&ourpath);
 			return (tmpPath);
 		}
 		i++;
 		free(tmpPath);
 	}
-	if (ourpath[0][0] != '\0')
+	if (_strcmp(ourpath[0], "\0") || _strcmp(ourpath[0], "nopath") == 0)
 		*after_PATH = 1;
-	for (i = 0; ourpath[i]; i++)
-		free(ourpath[i]);
-	free(ourpath[i]);
-	free(ourpath);
+	free_args(&ourpath);
 	tmpPath = malloc(sizeof(char) * (_strlen(command) + 1));
 	if (tmpPath == NULL)
 		malloc_error2();

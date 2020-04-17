@@ -3,15 +3,13 @@
 /**
  * reset - resets buffer if multiple arguments or commands
  * @buffer: input buffer read to in _getline function
- *
  * @args: input 2D array of arguments for first command
- *
  * @delim: input string with the delimiter used to set args
- *
+ * @lc: pointer to our current line count
  * Return: new pointer to buffer, starts from next command or NULL
  */
 
-char *reset(char **buffer, char ***args, char *delim)
+char *reset(char **buffer, char ***args, char *delim, int *lc)
 {
 	char *tempbuffer = (*buffer);
 	char *newbuffer;
@@ -20,12 +18,18 @@ char *reset(char **buffer, char ***args, char *delim)
 	for (i = 0; (*args)[i]; i++)
 	{
 		while (tempbuffer[0] == delim[0])
-		       /*|| tempbuffer[0] == '\n') */
 			tempbuffer++;
 		for (j = 0; (*args)[i][j]; j++)
 			tempbuffer++;
-		while (tempbuffer[0] == delim[0] || tempbuffer[0] == '\n')
-			tempbuffer++;
+		if (tempbuffer[0] != '\0')
+		{
+			while (tempbuffer[0] == delim[0] || tempbuffer[0] == '\n')
+			{
+				if (tempbuffer[0] == '\n')
+					*lc += 1;
+				tempbuffer++;
+			}
+		}
 	}
 	if (tempbuffer[0] == '\0')
 	{
