@@ -36,7 +36,7 @@ Returns the most recent value of an execute or failed command. 0 for success.
 .SH Errors
 .B Command not found
 If the entered command is not found shelly will print to STDERR [compiled name]: [line count]: [command entered]: Command not found. and will return an exit status of 127 if the next command entered is a quit command such as exit or ctrl d.
-
+Other potential errors include memory allocation fail(ENOMEM), Permission Denied (No execute rights), or Invalid Option (incorrect [option] for command).
 .SH OPTIONS
 none
 .SH SEE ALSO
