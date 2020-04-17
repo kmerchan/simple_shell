@@ -34,8 +34,8 @@ $
 
 ## Support
 For help using Shelly, please contact:
-Kelsie Merchant, 1708@holbertonschool.com
-Tim McMacken, 1646@holbertonschool.com
+Kelsie Merchant, kelsie.merchant@holbertonschool.com
+Tim McMacken, tim.mcmacken@holbertonschool.com
 
 ## Authors and Acknowledgement
 Kelsie Merchant and Tim McMacken
