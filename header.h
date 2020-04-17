@@ -53,7 +53,7 @@ char **_parse(char *buffer, char *delim);
 ssize_t arg_counting(char **buffer, char *delim);
 
 /* declaration of function to reset buffer after parse */
-char *reset(char **buffer, char ***args, char *delim);
+char *reset(char **buffer, char ***args, char *delim, int *lc);
 
 /* declaration of function to find & run builtin or program for input command*/
 void find_and_run(char **buffer, char ***args, char **path, int *sts,
@@ -72,7 +72,8 @@ void goodbye(char **buffer, char ***args, int *sts, char **name);
 void newline(char **buffer, char ***args, int *sts, char **name);
 
 /* declaration of function to check if program can be run before fork*/
-void check_exec(char **path, char ***args, char **buffer, int *sts, int lc, char **name);
+void check_exec(char **path, char ***args, char **buffer, int *sts, int lc,
+		char **name);
 /* declaration of subfunction to change integer to string for error */
 char *itoa(int num);
 /* declaration of subfunction to find power of base raised to exp */
@@ -96,7 +97,7 @@ void free_all_except_buffer(char **path, int *check_path, char ***args);
 /* declaration of error functions */
 void malloc_error(char **name);
 void malloc_error2(void);
-void getline_error(void);
+void getline_error(char **name);
 void write_error(void);
 
 #endif

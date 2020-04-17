@@ -1,6 +1,6 @@
 #include "header.h"
 
-#define NO_PATH_START ((*path)[0] != '/' && (*path)[0] != '.' && (*path)[0] != '~')
+#define NO_PATH_S ((*path)[0] != '/' && (*path)[0] != '.' && (*path)[0] != '~')
 
 /**
  * check_exec - checks if the program can be executed before fork
@@ -9,9 +9,11 @@
  * @buffer: input pointer to buffer read to in getline to free if error called
  * @sts: input status of previous command
  * @lc: input of current line count
+ * @name: name of running shell program
  */
 
-void check_exec(char **path, char ***args, char **buffer, int *sts, int lc, char **name)
+void check_exec(char **path, char ***args, char **buffer, int *sts, int lc,
+		char **name)
 {
 	int fail_stat = 0, after_PATH = 0;
 	char *count;
@@ -25,17 +27,13 @@ void check_exec(char **path, char ***args, char **buffer, int *sts, int lc, char
 		malloc_error(name);
 	}
 	*sts = stat((*path), &buf);
-	if ((*sts) == 0 && NO_PATH_START && after_PATH)
-		*sts = 127;
-	if ((*sts) != 0)
+	if ((*sts) != 0 || (NO_PATH_S && after_PATH))
 	{
 		fail_stat++;
 		free(*path);
 		(*path) = checkpath(findpath(), (*args)[0], fail_stat, &after_PATH);
 		*sts = stat((*path), &buf);
-		if ((*sts) == 0 && NO_PATH_START && after_PATH)
-			*sts = 127;
-		if ((*sts) != 0)
+		if ((*sts) != 0 || (NO_PATH_S && after_PATH))
 		{
 			count = itoa(lc);
 			write(STDERR, (*name), _strlen((*name)));

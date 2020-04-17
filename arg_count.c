@@ -17,8 +17,12 @@ ssize_t arg_counting(char **buffer, char *delim)
 	{
 		(*buffer)++;
 	}
-	if ((*buffer)[0] != '\0')
+	if ((*buffer)[0] != '\0' || delim[0] == ':')
+	{
 		arg_count++;
+		if (delim[0] == ':' && _strcmp((*buffer), "\0") == 0)
+			return (arg_count);
+	}
 	for (i = 0; (*buffer)[i]; i++)
 	{
 		if ((*buffer)[i] == '\n' && i != 0)
