@@ -11,12 +11,12 @@ interactive mode example:
 ./shelly
 $ ls -la
 .br
-If in interactive mode, once commadn is executed, a new prompt will be diplayed and await further input from the user.
+If in interactive mode, once command is executed, a new prompt will be diplayed and await further input from the user.
 .br
 non-interactive mode example: echo "ls -la" | ./shelly
 .br
 .SH DESCRIPTION
-.B shelly is a sh-compatible, if a bit basic, language interpreter that takes in commands from the CLI or an input file and executes them.
+.B shelly is a sh-compatible, if a bit basic, language interpreter that takes in commands from the CLI, or an input file, and executes them.
 
 .br
 .B Built In Commands
@@ -36,7 +36,13 @@ Returns the most recent value of an execute or failed command. 0 for success.
 .SH Errors
 .B Command not found
 If the entered command is not found shelly will print to STDERR [compiled name]: [line count]: [command entered]: Command not found. and will return an exit status of 127 if the next command entered is a quit command such as exit or ctrl d.
-Other potential errors include memory allocation fail(ENOMEM), Permission Denied (No execute rights), or Invalid Option (incorrect [option] for command).
+If the entered command is not executable due to no execution rights: Permission Denied with an exit code of 126.
+For memory allocation failure "ENOMEM Out of memory."
+For read failure "EINVAL Bad arguments".
+For write failure "ERROR: write failed."
+Additional errors can be encountered due to errors in running commands themselves.
+
+Invalid Option (incorrect [option] for command).
 .SH OPTIONS
 none
 .SH SEE ALSO
