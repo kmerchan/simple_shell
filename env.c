@@ -5,7 +5,7 @@
  * @buffer: buffer with input read into shell
  * @args: 2D array with arguments, including program name
  * @sts: input status of previous command
- *
+ * @name: name of currently running shell program
  */
 
 void printenv(char **buffer, char ***args, int *sts, char **name)

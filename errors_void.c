@@ -9,30 +9,34 @@ void malloc_error(char **name)
 {
 	/* Error message from malloc man page, exit status from ENOMEM */
 	char *string = "ENOMEM Out of memory.";
+
 	free((*name));
 	write(STDERR, string, _strlen(string));
 	exit(12);
 }
 
 /**
- * malloc_error - prints error message and exits when malloc fails
+ * malloc_error2 - prints error message and exits when malloc fails
  */
- 
+
 void malloc_error2(void)
 {
-        /* Error message from malloc man page, exit status from ENOMEM */
-	 char *string = "ENOMEM Out of memory.";
-	 write(STDERR, string, _strlen(string));
+	/*Error message from malloc man page, exit status from ENOMEM */
+	char *string = "ENOMEM Out of memory.";
+
+	write(STDERR, string, _strlen(string));
 }
 
 
 /**
  * getline_error - prints error message and exits when getline fails
+ * @name: name of currently running shell program
  */
 
-void getline_error(void)
+void getline_error(char **name)
 {
 	/*Error message from getline man page, exit status from EINVAL */
+	free(name);
 	perror("EINVAL Bad arguments\n");
 	exit(22);
 }
