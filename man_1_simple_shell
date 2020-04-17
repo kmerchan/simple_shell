@@ -1,14 +1,20 @@
 .TH Simple_Shell "Holberton Cohort 11" "April 2020" "Version 1.0"
 .SH NAME
-.B shelly \- This project is designed to replicate a simple version of the BASH.
+.B shelly \- This project is designed to replicate a simple version of the BASH (Bourne Again Shell).
 .SH SYNOPSIS
 .waB #include "header.h"
 .br
 ./shelly
 $ [option] [file];
 .br
-interactive mode example: $ ls -la
+interactive mode example:
+./shelly
+$ ls -la
+.br
+If in interactive mode, once commadn is executed, a new prompt will be diplayed and await further input from the user.
+.br
 non-interactive mode example: echo "ls -la" | ./shelly
+.br
 .SH DESCRIPTION
 .B shelly is a sh-compatible, if a bit basic, language interpreter that takes in commands from the CLI or an input file and executes them.
 
@@ -25,7 +31,7 @@ non-interactive mode example: echo "ls -la" | ./shelly
 
 .br
 .B Return Value
-Upon successful return, the command entered by the user in interactive or non-interactive mode will be executed by the shelly. If in interactive mode, a new prompt will be displayed and await further input from the user.
+Returns the most recent value of an execute or failed command. 0 for success. 
 .br
 .SH Errors
 .B Command not found
