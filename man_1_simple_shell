@@ -1,27 +1,41 @@
 .TH Simple_Shell "Holberton Cohort 11" "April 2020" "Version 1.0"
 .SH NAME
-.B simple_shell \- This project is designed to replicate a simple version of the BASH.
+.B shelly \- This project is designed to replicate a simple version of the BASH.
 .SH SYNOPSIS
-.waB #include "holberton.h"
+.waB #include "header.h"
 .br
-./simple_shell
+./shelly
 $ [option] [file];
-
+.br
+interactive mode example: $ ls -la
+non-interactive mode example: echo "ls -la" | ./shelly
 .SH DESCRIPTION
-.B simple_shell is a sh-compatible, if a bit basic, language interpreter that takes in commands from the CLI or an input file and executes them.
+.B shelly is a sh-compatible, if a bit basic, language interpreter that takes in commands from the CLI or an input file and executes them.
 
 .br
-.B
+.B Built In Commands
+
+.br
+.B env
+- prints current environment variable
+
+.br
+.B exit
+- exits shelly
 
 .br
 .B Return Value
-Upon successful return, the command entered by the user in interactive or non-interactive mode will be executed by the simple_shell. If in interactive mode, a new prompt will be displayed and await further input from the user.
+Upon successful return, the command entered by the user in interactive or non-interactive mode will be executed by the shelly. If in interactive mode, a new prompt will be displayed and await further input from the user.
+.br
+.SH Errors
+.B Command not found
+If the entered command is not found shelly will print to STDERR [compiled name]: [line count]: [command entered]: Command not found. and will return an exit status of 127 if the next command entered is a quit command such as exit or ctrl d.
 
 .SH OPTIONS
-.
+none
 .SH SEE ALSO
 .I man sh(1)
 .SH BUGS
 Hopefully no bugs and an all green on the checker but if you find a bug let Tim and Kelsie know.
 .SH AUTHOR
-Written by Kelsie Merchant and Tim McMacken, Holberton Tulsa Cohort 11 (1), April 2020.
+Written by Kelsie Merchant (kelsie.merchant@holbertonschool.com) and Tim McMacken (tim.mcmacken@holbertonschool.com), Holberton Tulsa Cohort 11 (1), April 2020.

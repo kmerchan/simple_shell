@@ -87,7 +87,7 @@ char *checkpath(char **ourpath, char *command, int fail_stat, int *after_PATH);
 char *str_concat(char *ourpath, char *command);
 
 /* declaration of function to execute commands with fork, execve */
-void execute(char **path, char ***args, char **buffer);
+int execute(char **path, char ***args, char **buffer);
 
 /* declaration of a function to free the alloted memory for args */
 void free_args(char ***args);

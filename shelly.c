@@ -81,7 +81,7 @@ void find_and_run(char **buffer, char ***args, char **path, int *sts,
 			*check_path = 1;
 			check_exec(path, args, buffer, sts, lc, name);
 					if (*sts == 0)
-						execute(path, args, buffer);
+						*sts = execute(path, args, buffer);
 				}
 			}
 }
