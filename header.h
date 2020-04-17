@@ -41,6 +41,9 @@ char *_strdup(char *input, char *name);
 /* decalration of function to print prompt for user input */
 int print_prompt(char **name);
 
+/* declaration of function to catch CTRL+C signal */
+void signal_interrupt(int signal);
+
 /* declaration of function to read input into buffer (similar: getline) */
 ssize_t _getline(char **buffer, ssize_t *buffsize, FILE *stdin,
 		 int user_input, int stat_check, char **name);

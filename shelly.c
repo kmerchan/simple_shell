@@ -20,6 +20,7 @@ int main(int argc, char **argv)
 	{
 		if (isatty(STDIN))
 			user_input = print_prompt(&name);
+		signal(SIGINT, &signal_interrupt);
 		buffer = malloc(sizeof(char) * BUFF_SIZE);
 		if (buffer == NULL)
 			malloc_error(&name);
@@ -84,4 +85,21 @@ void find_and_run(char **buffer, char ***args, char **path, int *sts,
 						*sts = execute(path, args, buffer);
 				}
 			}
+}
+
+/**
+ * signal_interrupt - catches Ctrl+C and, instead of stopping shell,
+* it writes a newline and prompts the user again
+* @signal: input signal to confirm is SIGINT
+*/
+
+void signal_interrupt(int signal)
+{
+	char *new_prompt = "\n$ ";
+
+	if (signal == SIGINT)
+	{
+		if (isatty(STDIN))
+			write(STDOUT, new_prompt, _strlen(new_prompt));
+	}
 }
